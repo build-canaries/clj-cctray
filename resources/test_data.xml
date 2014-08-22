@@ -1,3 +1,6 @@
 <Projects>
-    <Project name="some name" lastBuildStatus="Success"/>
+    <Project name="name1" lastBuildStatus="Success"/>
+    <Project name="name2" lastBuildStatus="Success"/>
+    <Project name="name3" lastBuildStatus="Failure"/>
+    <random stuff="random-stuff"/>
 </Projects>
