@@ -4,14 +4,13 @@
 
 (fact "will turn xml to map"
       (:content (subject/to-map "resources/test_data.xml")) => (contains
-                                                                 [(contains {:attrs {:name            "name1"
+                                                                 [(contains {:attrs {:name            "name1 :: pipeline1 :: stage1"
                                                                                      :lastBuildStatus "Success"}})]))
 
-(fact "will create list of projects"
-      (subject/get-projects "resources/test_data.xml") => [{:name "name1" :lastBuildStatus "Success"}
-                                                           {:name "name2" :lastBuildStatus "Success"}
-                                                           {:name "name3" :lastBuildStatus "Failure"}])
+(fact "will split project name to seperate attributes in map"
+      (subject/extract-name "name1 :: test :: deploy") => {:name "name1" :pipeline "test" :stage "deploy"})
 
-(facts "will split project attributes to seperate attributes in map"
-       (fact "project name"
-             (subject/extract-name "name1 :: test :: deploy") => {:name "name1" :pipeline "test" :stage "deploy"}))
+(fact "will create list of projects"
+      (subject/get-projects "resources/test_data.xml") => [{:name "name1" :pipeline "pipeline1" :stage "stage1" :lastBuildStatus "Success"}
+                                                           {:name "name2" :pipeline "pipeline2" :stage "stage2" :lastBuildStatus "Success"}
+                                                           {:name "name3" :pipeline "pipeline3" :stage "stage3" :lastBuildStatus "Failure"}])
