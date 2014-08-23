@@ -3,12 +3,11 @@
             [compojure.handler :as handler]
             [ring.adapter.jetty :as jetty]
             [compojure.response :as response]
+            [cctray-clj.parser :as parser]
             [compojure.core :refer :all]))
 
-(def hello-world "hello world")
-
 (defroutes main-routes
-           (GET "/" [] hello-world))
+           (GET "/" [] (parser/get-projects "resources/test_data.xml")))
 
 (def app (handler/site main-routes))
 
