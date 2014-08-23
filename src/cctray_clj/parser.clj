@@ -9,9 +9,12 @@
   (let [split-name (split name #"\s::\s")]
     {:name (first split-name) :pipeline (second split-name) :stage (last split-name)}))
 
+(defn extract-attributes [data]
+  (if (= (:tag data) :Project)
+    (merge (:attrs data) (extract-name (get-in data [:attrs :name])))))
+
 (defn get-projects [url]
   (let [content (:content (to-map url))]
     (remove nil? (map
-                   #(if (= (:tag %) :Project)
-                     (merge (:attrs %) (extract-name (get-in % [:attrs :name]))))
+                   #(extract-attributes %)
                    content))))
