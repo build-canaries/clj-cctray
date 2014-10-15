@@ -1,10 +1,10 @@
 # cctray-clj
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed to parse the cctray format into a user friendly clojure map.
 
-## Usage
+## CC Tray XML Spec
 
-FIXME
+See https://github.com/robertmaldon/cc_dashboard/blob/master/README.md#summary
 
 ## License
 
