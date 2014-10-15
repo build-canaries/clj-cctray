@@ -1,21 +1,10 @@
 (ns cctray-clj.parser
   (:require [clojure.xml :as xml]
-            [clojure.string :refer [split join]]))
-
-(defn sentanceize [input-string]
-  (-> input-string
-      (clojure.string/replace #"[-_]+", " ")
-      (clojure.string/replace #"([a-z])([A-Z])", "$1 $2")))
+            [clojure.string :refer [split join]]
+            [cctray-clj.name :refer :all]))
 
 (defn to-map [url]
   (xml/parse url))
-
-(defn extract-name [name]
-  (let [split-name (split name #"\s::\s")]
-    {:name     (sentanceize (first split-name))
-     :raw-name (first split-name)
-     :stage    (second split-name)
-     :job      (last split-name)}))
 
 (defn extract-health [{:keys [lastBuildStatus activity]}]
   (cond
