@@ -1,18 +1,11 @@
 (ns cctray-clj.parser
   (:require [clojure.xml :as xml]
             [clojure.string :refer [split join]]
-            [cctray-clj.name :refer :all]))
+            [cctray-clj.name :refer :all]
+            [cctray-clj.health :refer :all]))
 
 (defn to-map [url]
   (xml/parse url))
-
-(defn extract-health [{:keys [lastBuildStatus activity]}]
-  (cond
-    (and (= lastBuildStatus "Success") (= activity "Sleeping")) {:prognosis "healthy"}
-    (and (= lastBuildStatus "Success") (= activity "Building")) {:prognosis "healthy-building"}
-    (and (= lastBuildStatus "Failure") (= activity "Sleeping")) {:prognosis "sick"}
-    (and (= lastBuildStatus "Failure") (= activity "Building")) {:prognosis "sick-building"}
-    :else {:prognosis "unknown"}))
 
 (defn extract-attributes [data]
   (if (= (:tag data) :Project)
