@@ -20,4 +20,4 @@
        (remove nil?)))
 
 (defn get-interesting-projects [url]
-  (filter (fn [{:keys [prognosis]}] (not= prognosis "healthy")) (get-projects url)))
+  (filter (fn [{:keys [prognosis]}] (not= prognosis :healthy)) (get-projects url)))

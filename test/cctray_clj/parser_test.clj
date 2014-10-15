@@ -3,12 +3,11 @@
             [midje.sweet :refer :all]))
 
 (fact "can filter out green projects"
-      (subject/get-interesting-projects anything) =>
-      [{:prognosis "healthy-building"}
-       {:prognosis "sick-building"}
-       {:prognosis "sick"}]
+      (subject/get-interesting-projects anything) => [{:prognosis :healthy-building}
+                                                      {:prognosis :sick-building}
+                                                      {:prognosis :sick}]
       (provided
-        (subject/get-projects anything) => [{:prognosis "healthy-building"}
-                                            {:prognosis "sick-building"}
-                                            {:prognosis "healthy"}
-                                            {:prognosis "sick"}]))
+        (subject/get-projects anything) => [{:prognosis :healthy-building}
+                                            {:prognosis :sick-building}
+                                            {:prognosis :healthy}
+                                            {:prognosis :sick}]))

@@ -8,7 +8,7 @@
 (fact "required test_data.xml file exists"
       (.exists (io/as-file test-data-url)) => true)
 
-(fact "will turn xml to map"
+(fact "parses the xml into a raw map"
       (first (:content (subject/to-map test-data-url)))
       => (contains {:attrs {:name            "success-sleeping-project :: stage1 :: job1"
                             :activity        "Sleeping"
@@ -25,7 +25,7 @@
           :stage           "stage1"
           :job             "job1"
           :activity        "Sleeping"
-          :prognosis       "healthy"
+          :prognosis       :healthy
           :lastBuildStatus "Success"
           :lastBuildLabel  "8"
           :lastBuildTime   "2005-09-28T10:30:34.6362160+01:00"
