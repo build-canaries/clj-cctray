@@ -1,9 +1,9 @@
 (ns cctray-clj.health)
 
-(defn extract-health [{:keys [lastBuildStatus activity]}]
+(defn extract-health [{:keys [last-build-status activity]}]
   (cond
-    (and (= lastBuildStatus "Success") (= activity "Sleeping")) {:prognosis :healthy}
-    (and (= lastBuildStatus "Success") (= activity "Building")) {:prognosis :healthy-building}
-    (and (= lastBuildStatus "Failure") (= activity "Sleeping")) {:prognosis :sick}
-    (and (= lastBuildStatus "Failure") (= activity "Building")) {:prognosis :sick-building}
+    (and (= last-build-status "Success") (= activity "Sleeping")) {:prognosis :healthy}
+    (and (= last-build-status "Success") (= activity "Building")) {:prognosis :healthy-building}
+    (and (= last-build-status "Failure") (= activity "Sleeping")) {:prognosis :sick}
+    (and (= last-build-status "Failure") (= activity "Building")) {:prognosis :sick-building}
     :else {:prognosis :unknown}))

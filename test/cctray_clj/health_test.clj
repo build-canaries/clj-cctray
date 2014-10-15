@@ -3,7 +3,7 @@
             [midje.sweet :refer :all]))
 
 (tabular "will say if the build is healthy"
-         (fact (subject/extract-health {:lastBuildStatus ?status :activity ?activity}) => {:prognosis ?healthy})
+         (fact (subject/extract-health {:last-build-status ?status :activity ?activity}) => {:prognosis ?healthy})
          ?status ?activity ?healthy
          "Success" "Sleeping" :healthy
          "Success" "Building" :healthy-building
