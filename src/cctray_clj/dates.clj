@@ -13,5 +13,9 @@
                               xs-date-time-format-no-timezone
                               xs-date-time-format-no-milli-or-timezone))
 
-(defn extract-dates [{:keys [last-build-time]}]
-  {:last-build-time (f/parse date-parser last-build-time)})
+(defn parse-date [s]
+  (if-not (nil? s) (f/parse date-parser s)))
+
+(defn extract-dates [{:keys [last-build-time next-build-time]}]
+  {:last-build-time (parse-date last-build-time)
+   :next-build-time (parse-date next-build-time)})
