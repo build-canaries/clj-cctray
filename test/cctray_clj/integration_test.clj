@@ -1,7 +1,8 @@
 (ns cctray-clj.integration-test
   (:require [cctray-clj.parser :as subject]
             [midje.sweet :refer :all]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [clj-time.core :as t]))
 
 (def test-data-url "resources/test_data.xml")
 
@@ -14,8 +15,8 @@
                             :activity        "Sleeping"
                             :lastBuildStatus "Success"
                             :lastBuildLabel  "8"
-                            :lastBuildTime   "2005-09-28T10:30:34.6362160+01:00"
-                            :nextBuildTime   "2005-10-04T14:31:52.4509248+01:00"
+                            :lastBuildTime   "2005-09-28T10:30:34.636+01:00"
+                            :nextBuildTime   "2005-10-04T14:31:52.450+01:00"
                             :webUrl          "http://some-url"}}))
 
 (fact "will create list of projects"
@@ -28,7 +29,7 @@
           :prognosis         :healthy
           :last-build-status "Success"
           :last-build-label  "8"
-          :last-build-time   "2005-09-28T10:30:34.6362160+01:00"
-          :next-build-time   "2005-10-04T14:31:52.4509248+01:00"
+          :last-build-time   (t/date-time 2005 9 28 9 30 34 636)
+          :next-build-time   (t/date-time 2005 10 4 13 31 52 450)
           :web-url           "http://some-url"})
 

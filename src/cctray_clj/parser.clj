@@ -3,6 +3,7 @@
             [clojure.string :refer [split join]]
             [cctray-clj.name :refer :all]
             [cctray-clj.health :refer :all]
+            [cctray-clj.dates :refer :all]
             [cctray-clj.camel-keyword :refer :all]))
 
 (defn to-map [url]
@@ -14,7 +15,8 @@
       (merge
         attributes
         (extract-name (:name attributes))
-        (extract-health attributes)))))
+        (extract-health attributes)
+        (extract-dates attributes)))))
 
 (defn get-projects [url]
   (->> (:content (to-map url))
