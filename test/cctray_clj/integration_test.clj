@@ -21,7 +21,7 @@
 
 (fact "will create list of projects"
       (first (subject/get-projects test-data-url))
-      => {:raw-name          "success-sleeping-project"
+      => {:unmodified-name   "success-sleeping-project"
           :name              "success sleeping project"
           :stage             "stage1"
           :job               "job1"

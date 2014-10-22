@@ -20,37 +20,46 @@
        (fact "nil doesn't cause a NullPointerException"
              (subject/sentanceize nil) => nil))
 
-(facts "extract-name"
-       (fact "includes the raw name"
-             (subject/extract-name "some-name") => (contains {:raw-name "some-name"}))
+(facts "normalise string"
+      (fact "lower cases"
+            (subject/normalise-string "UPPERCASE") => "uppercase")
 
-       (fact "sentanceizes the name"
+      (fact "sentanceizes"
+            (subject/normalise-string ..input..) => "..output.."
+            (provided
+              (subject/sentanceize ..input..) => ..output..)))
+
+(facts "extract-name"
+       (fact "includes the unmodified name"
+             (subject/extract-name "some-name") => (contains {:unmodified-name "some-name"}))
+
+       (fact "normalises the name"
              (subject/extract-name "some-name") => (contains {:name ..name..})
              (provided
-               (subject/sentanceize "some-name") => ..name..
-               (subject/sentanceize anything) => irrelevant))
+               (subject/normalise-string "some-name") => ..name..
+               (subject/normalise-string anything) => irrelevant))
 
        (facts "ThoughtWorks Go uses :: to delimit the name from the stage and job"
-              (fact "extracts the name"
-                    (subject/extract-name "name :: stage") => (contains {:name "name"}))
+              (fact "the unmodified name doesn't include stage or job"
+                    (subject/extract-name "name :: stage :: job") => (contains {:unmodified-name "name"}))
 
-              (fact "extracts the stage"
-                    (subject/extract-name "name :: stage") => (contains {:stage "stage"}))
+              (fact "extracts and normalises the name"
+                    (subject/extract-name "name :: stage :: job") => (contains {:name ..name..})
+                    (provided
+                      (subject/normalise-string "name") => ..name..
+                      (subject/normalise-string anything) => irrelevant))
 
-              (fact "sentanceizes the stage"
+              (fact "extracts and normalises the stage"
                     (subject/extract-name "name :: some-stage") => (contains {:stage ..stage..})
                     (provided
-                      (subject/sentanceize "some-stage") => ..stage..
-                      (subject/sentanceize anything) => irrelevant))
+                      (subject/normalise-string "some-stage") => ..stage..
+                      (subject/normalise-string anything) => irrelevant))
 
-              (fact "extracts the job"
-                    (subject/extract-name "name :: stage :: job") => (contains {:job "job"}))
-
-              (fact "sentanceizes the job"
+              (fact "extracts and normalises the job"
                     (subject/extract-name "name :: stage :: some-job") => (contains {:job ..job..})
                     (provided
-                      (subject/sentanceize "some-job") => ..job..
-                      (subject/sentanceize anything) => irrelevant))
+                      (subject/normalise-string "some-job") => ..job..
+                      (subject/normalise-string anything) => irrelevant))
 
               (fact "sets stage and job to nil if no delimiter exists (ie. if parsing from non Go CI Servers)"
                     (subject/extract-name "i-am-just-a-name") => (contains {:stage nil
