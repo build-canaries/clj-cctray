@@ -8,6 +8,9 @@
 (fact "keywords camelCase keywords"
       (subject/keywordize-camel :camelCase) => :camel-case)
 
+(fact "keywords Sentence case strings"
+      (subject/keywordize-camel "Camel") => :camel)
+
 (fact "keywords acroynms correctly"
       (subject/keywordize-camel "somethingWithABC") => :something-with-abc)
 
