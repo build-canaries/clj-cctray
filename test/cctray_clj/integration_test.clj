@@ -25,9 +25,9 @@
           :name              "success sleeping project"
           :stage             "stage1"
           :job               "job1"
-          :activity          "Sleeping"
+          :activity          :sleeping
           :prognosis         :healthy
-          :last-build-status "Success"
+          :last-build-status :success
           :last-build-label  "8"
           :last-build-time   (t/date-time 2005 9 28 9 30 34 636)
           :next-build-time   (t/date-time 2005 10 4 13 31 52 450)

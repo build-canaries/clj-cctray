@@ -14,7 +14,7 @@
   (if-not (nil? str)
     (lower-case (sentanceize str))))
 
-(defn extract-name [name]
+(defn extract-name [{:keys [name]}]
   (let [split-name (split name #"\s::\s")]
     {:name            (normalise-string (first split-name))
      :unmodified-name (first split-name)

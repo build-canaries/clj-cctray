@@ -14,6 +14,9 @@
 (fact "keywords acroynms correctly"
       (subject/keywordize-camel "somethingWithABC") => :something-with-abc)
 
+(fact "handles nil"
+      (subject/keywordize-camel nil) => nil)
+
 (fact "keywordize keys in a map"
       (subject/keywordize-camel-keys {"camelCase"               irrelevant
                                       "somethingElseCamelCased" irrelevant}) => {:camel-case                 irrelevant
