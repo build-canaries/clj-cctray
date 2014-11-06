@@ -30,21 +30,15 @@
                (subject/sentanceize ..input..) => ..output..)))
 
 (facts "extract-name"
-       (fact "includes the unmodified name"
-             (subject/extract-name {:name "some-name"}) => (contains {:unmodified-name "some-name"}))
-
        (fact "normalises the name"
-             (subject/extract-name {:name "some-name"}) => (contains {:name ..name..})
+             (subject/extract-name {:name "some-name"}) => (contains {:project-name ..name..})
              (provided
                (subject/normalise-string "some-name") => ..name..
                (subject/normalise-string anything) => irrelevant))
 
        (facts "ThoughtWorks Go uses :: to delimit the name from the stage and job"
-              (fact "the unmodified name doesn't include stage or job"
-                    (subject/extract-name {:name "name :: stage :: job"}) => (contains {:unmodified-name "name"}))
-
-              (fact "extracts and normalises the name"
-                    (subject/extract-name {:name "name :: stage :: job"}) => (contains {:name ..name..})
+              (fact "extracts and normalises the project name"
+                    (subject/extract-name {:name "name :: stage :: job"}) => (contains {:project-name ..name..})
                     (provided
                       (subject/normalise-string "name") => ..name..
                       (subject/normalise-string anything) => irrelevant))

@@ -9,20 +9,14 @@
 (defn to-map [url]
   (xml/parse url))
 
-(defn- update-attributes [attributes]
-  (merge
-    attributes
-    (keyword-activity attributes)
-    (keyword-status attributes)
-    (extract-name attributes)
-    (extract-dates attributes)))
+(defn- by-modifying-attributes [attributes fn]
+  (merge attributes (fn attributes)))
 
 (defn extract-attributes [data]
   (if (= (:tag data) :Project)
-    (let [attributes (keywordize-camel-keys (:attrs data))
-          updated-attributes (update-attributes attributes)]
-      (merge updated-attributes
-             (add-prognosis updated-attributes)))))
+    (reduce by-modifying-attributes
+            (keywordize-camel-keys (:attrs data))
+            [keyword-activity keyword-status extract-dates add-prognosis extract-name])))
 
 (defn get-projects [url]
   (->> (:content (to-map url))

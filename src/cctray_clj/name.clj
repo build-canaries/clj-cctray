@@ -16,8 +16,7 @@
 
 (defn extract-name [{:keys [name]}]
   (let [split-name (split name #"\s::\s")]
-    {:name            (normalise-string (first split-name))
-     :unmodified-name (first split-name)
-     :stage           (normalise-string (second split-name))
-     :job             (if (contains-job? split-name)
-                        (normalise-string (last split-name)))}))
+    {:project-name (normalise-string (first split-name))
+     :stage        (normalise-string (second split-name))
+     :job          (if (contains-job? split-name)
+                     (normalise-string (last split-name)))}))
