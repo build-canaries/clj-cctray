@@ -37,6 +37,9 @@
                (subject/normalise-string anything) => irrelevant))
 
        (facts "ThoughtWorks Go uses :: to delimit the name from the stage and job"
+              (fact "replaces :name with the extracted name unnormalised"
+                    (subject/extract-name {:name "SomeName :: stage :: job"}) => (contains {:name "SomeName"}))
+
               (fact "extracts and normalises the project name"
                     (subject/extract-name {:name "name :: stage :: job"}) => (contains {:project-name ..name..})
                     (provided

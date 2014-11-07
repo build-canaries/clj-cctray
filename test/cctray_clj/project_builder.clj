@@ -3,6 +3,7 @@
 
 (defn build [overrides]
   (merge {:name              "some-name"
+          :project-name      "some-name"
           :stage             "some-stage"
           :job               "some-job"
           :activity          "Sleeping"
