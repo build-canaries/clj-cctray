@@ -49,4 +49,10 @@
                (subject/sick-building projects) => [{:name "project-4" :prognosis :sick-building}])
 
          (fact "unknown"
-               (subject/unknown-prognosis projects) => [{:name "project-5" :prognosis :unknown}])))
+               (subject/unknown-prognosis projects) => [{:name "project-5" :prognosis :unknown}])
+
+         (fact "interesting includes everything but healthy projects"
+               (subject/interesting projects) => [{:name "project-2" :prognosis :sick}
+                                                  {:name "project-3" :prognosis :healthy-building}
+                                                  {:name "project-4" :prognosis :sick-building}
+                                                  {:name "project-5" :prognosis :unknown}])))

@@ -27,3 +27,6 @@
 
 (defn unknown-prognosis [projects]
   (by-prognosis :unknown projects))
+
+(defn interesting [projects]
+  (filter #(not= :healthy (:prognosis %)) projects))
