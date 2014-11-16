@@ -2,23 +2,23 @@
   (:require [cctray-clj.name :as subject]
             [midje.sweet :refer :all]))
 
-(facts "sentanceize"
+(facts "sentenceize"
        (fact "hyphens"
-             (subject/sentanceize "first-second-third-fourth") => "first second third fourth")
+             (subject/sentenceize "first-second-third-fourth") => "first second third fourth")
 
        (fact "underscores"
-             (subject/sentanceize "first_second_third_fourth") => "first second third fourth")
+             (subject/sentenceize "first_second_third_fourth") => "first second third fourth")
 
        (fact "camelCase"
-             (subject/sentanceize "firstSecondThird") => "first Second Third"
-             (subject/sentanceize "FirstSecondThird") => "First Second Third")
+             (subject/sentenceize "firstSecondThird") => "first Second Third"
+             (subject/sentenceize "FirstSecondThird") => "First Second Third")
 
        (fact "acroynms are not split"
-             (subject/sentanceize "ABC") => "ABC"
-             (subject/sentanceize "somethingEndingWithABC") => "something Ending With ABC")
+             (subject/sentenceize "ABC") => "ABC"
+             (subject/sentenceize "somethingEndingWithABC") => "something Ending With ABC")
 
        (fact "nil doesn't cause a NullPointerException"
-             (subject/sentanceize nil) => nil))
+             (subject/sentenceize nil) => nil))
 
 (facts "normalise string"
        (fact "lower cases"
@@ -27,7 +27,7 @@
        (fact "sentanceizes"
              (subject/normalise-string ..input..) => "..output.."
              (provided
-               (subject/sentanceize ..input..) => ..output..)))
+               (subject/sentenceize ..input..) => ..output..)))
 
 (facts "extract-name"
        (fact "normalises the name"

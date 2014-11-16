@@ -4,7 +4,7 @@
 (defn- contains-job? [split-name]
   (> (count split-name) 2))
 
-(defn sentanceize [str]
+(defn sentenceize [str]
   (if-not (nil? str)
     (-> str
         (clojure.string/replace #"[-_]+", " ")
@@ -12,7 +12,7 @@
 
 (defn normalise-string [str]
   (if-not (nil? str)
-    (lower-case (sentanceize str))))
+    (lower-case (sentenceize str))))
 
 (defn extract-name [{:keys [name]}]
   (let [split-name (split name #"\s::\s")]

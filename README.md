@@ -41,7 +41,7 @@ A Clojure library designed to parse the cctray format into a user friendly cloju
 
 ## Normalised strings
 
-Normalised strings are lower case and "sentanceized" which means camel, snake and kebab cased words are converted to normal sentances with spaces.
+Normalised strings are lower case and "sentenceized" which means camel, snake and kebab cased words are converted to normal sentences with spaces.
 
 ```
 CamelCased_Snake-Kebab => camel cased snake kebab
