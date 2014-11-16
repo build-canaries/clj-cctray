@@ -1,4 +1,4 @@
-(defproject cctray-clj "0.1.0-SNAPSHOT"
+(defproject cctray-clj "0.1.0"
             :description "XML parser for cctray"
             :url "https://github.com/cowley05/cctray-clj"
             :license {:name "Eclipse Public License"

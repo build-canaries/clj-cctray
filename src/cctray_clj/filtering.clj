@@ -1,6 +1,9 @@
 (ns cctray-clj.filtering
   (:require [clj-time.core :as t]))
 
+(defn- in? [seq elm]
+  (some #(= elm %) seq))
+
 (defn by-name [name projects]
   (filter #(= name (:name %)) projects))
 
@@ -11,22 +14,22 @@
   (filter #(t/after? (:last-build-time %) date) projects))
 
 (defn by-prognosis [prognosis projects]
-  (filter #(= prognosis (:prognosis %)) projects))
+  (filter #(in? prognosis (:prognosis %)) projects))
 
 (defn healthy [projects]
-  (by-prognosis :healthy projects))
+  (by-prognosis [:healthy] projects))
 
 (defn sick [projects]
-  (by-prognosis :sick projects))
+  (by-prognosis [:sick] projects))
 
 (defn healthy-building [projects]
-  (by-prognosis :healthy-building projects))
+  (by-prognosis [:healthy-building] projects))
 
 (defn sick-building [projects]
-  (by-prognosis :sick-building projects))
+  (by-prognosis [:sick-building] projects))
 
 (defn unknown-prognosis [projects]
-  (by-prognosis :unknown projects))
+  (by-prognosis [:unknown] projects))
 
 (defn interesting [projects]
-  (filter #(not= :healthy (:prognosis %)) projects))
+  (by-prognosis [:sick :healthy-building :sick-building :unknown] projects))
