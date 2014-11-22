@@ -1,5 +1,5 @@
-(ns cctray-clj.name-test
-  (:require [cctray-clj.name :as subject]
+(ns clj-cctray.name-test
+  (:require [clj-cctray.name :as subject]
             [midje.sweet :refer :all]))
 
 (facts "sentenceize"

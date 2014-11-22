@@ -1,10 +1,10 @@
-(ns cctray-clj.parser
+(ns clj-cctray.parser
   (:require [clojure.xml :as xml]
             [clojure.string :refer [split join]]
-            [cctray-clj.name :refer :all]
-            [cctray-clj.health :refer :all]
-            [cctray-clj.dates :refer :all]
-            [cctray-clj.camel-keyword :refer :all]))
+            [clj-cctray.name :refer :all]
+            [clj-cctray.health :refer :all]
+            [clj-cctray.dates :refer :all]
+            [clj-cctray.camel-keyword :refer :all]))
 
 (defn to-map [url]
   (xml/parse url))

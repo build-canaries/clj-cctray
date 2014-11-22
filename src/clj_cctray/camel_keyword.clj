@@ -1,4 +1,4 @@
-(ns cctray-clj.camel-keyword
+(ns clj-cctray.camel-keyword
   (:require [clojure.string :refer [join lower-case split]])
   (:refer-clojure :exclude [join]))
 

@@ -1,4 +1,4 @@
-(ns cctray-clj.go)
+(ns clj-cctray.go)
 
 (def prognosis-priorities {#{:sick-building}                   :sick-building
                            #{:sick-building :sick}             :sick-building

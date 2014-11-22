@@ -1,5 +1,5 @@
-(ns cctray-clj.filtering-test
-  (:require [cctray-clj.filtering :as subject]
+(ns clj-cctray.filtering-test
+  (:require [clj-cctray.filtering :as subject]
             [midje.sweet :refer :all]
             [clj-time.core :as t]))
 

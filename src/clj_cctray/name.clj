@@ -1,4 +1,4 @@
-(ns cctray-clj.name
+(ns clj-cctray.name
   (:require [clojure.string :refer [split join lower-case]]))
 
 (defn- contains-job? [split-name]

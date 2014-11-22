@@ -1,5 +1,5 @@
-(ns cctray-clj.health-test
-  (:require [cctray-clj.health :as subject]
+(ns clj-cctray.health-test
+  (:require [clj-cctray.health :as subject]
             [midje.sweet :refer :all]))
 
 (fact "keyword last build status"

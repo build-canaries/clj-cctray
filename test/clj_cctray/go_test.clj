@@ -1,5 +1,5 @@
-(ns cctray-clj.go-test
-  (:require [cctray-clj.go :as subject]
+(ns clj-cctray.go-test
+  (:require [clj-cctray.go :as subject]
             [midje.sweet :refer :all]
             [clj-time.core :as t]))
 

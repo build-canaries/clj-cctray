@@ -1,4 +1,4 @@
-(ns cctray-clj.dates
+(ns clj-cctray.dates
   (:require [clj-time.format :as f]
             [clj-time.core :as t]))
 

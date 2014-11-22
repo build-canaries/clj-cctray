@@ -1,5 +1,5 @@
-(ns cctray-clj.camel-keyword-test
-  (:require [cctray-clj.camel-keyword :as subject]
+(ns clj-cctray.camel-keyword-test
+  (:require [clj-cctray.camel-keyword :as subject]
             [midje.sweet :refer :all]))
 
 (fact "keywords camelCase strings"

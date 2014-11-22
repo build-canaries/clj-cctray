@@ -1,4 +1,4 @@
-(ns cctray-clj.filtering
+(ns clj-cctray.filtering
   (:require [clj-time.core :as t]))
 
 (defn- in? [seq elm]

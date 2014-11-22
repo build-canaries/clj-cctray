@@ -1,5 +1,5 @@
-(ns cctray-clj.integration-test
-  (:require [cctray-clj.parser :as subject]
+(ns clj-cctray.integration-test
+  (:require [clj-cctray.parser :as subject]
             [midje.sweet :refer :all]
             [clojure.java.io :as io]
             [clj-time.core :as t]))

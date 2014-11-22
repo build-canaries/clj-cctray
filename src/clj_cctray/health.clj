@@ -1,5 +1,5 @@
-(ns cctray-clj.health
-  (:require [cctray-clj.camel-keyword :refer :all]))
+(ns clj-cctray.health
+  (:require [clj-cctray.camel-keyword :refer :all]))
 
 (defn keyword-status [{:keys [last-build-status]}]
   {:last-build-status (keywordize-camel last-build-status)})
