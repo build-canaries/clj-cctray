@@ -47,6 +47,10 @@ Normalised strings are lower case and "sentenceized" which means camel, snake an
 CamelCased_Snake-Kebab => camel cased snake kebab
 ```
 
+## Installation
+
+`clj-cctray` is available as a Maven artifact from [Clojars](http://clojars.org/clj-cctray)
+
 ## CC Tray XML Spec
 
 See https://github.com/robertmaldon/cc_dashboard/blob/master/README.md#summary
