@@ -53,7 +53,7 @@ See https://github.com/robertmaldon/cc_dashboard/blob/master/README.md#summary
 
 ## License
 
-Copyright © 2014 Christopher Martin and friends
+Copyright © 2014 Build Canaries and friends
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
