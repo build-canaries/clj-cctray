@@ -1,4 +1,4 @@
-# cctray-clj
+# clj-cctray
 
 A Clojure library designed to parse the cctray format into a user friendly clojure map.
 
