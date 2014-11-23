@@ -5,7 +5,7 @@
   (some #(= elm %) seq))
 
 (defn by-name [name projects]
-  (filter #(= name (:name %)) projects))
+  (filter #(in? name (:name %)) projects))
 
 (defn before [date projects]
   (filter #(t/before? (:last-build-time %) date) projects))

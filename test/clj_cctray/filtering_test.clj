@@ -4,13 +4,15 @@
             [clj-time.core :as t]))
 
 (fact "filters by name"
-      (subject/by-name "project-1" [{:name "project-1"}
-                                    {:name "project-1"}
-                                    {:name "project-2"}
-                                    {:name "project-2"}
-                                    {:name "project-3"}
-                                    {:name "project-3"}]) => [{:name "project-1"}
-                                                              {:name "project-1"}])
+      (subject/by-name ["project-1" "project-2"] [{:name "project-1"}
+                                                  {:name "project-1"}
+                                                  {:name "project-2"}
+                                                  {:name "project-2"}
+                                                  {:name "project-3"}
+                                                  {:name "project-3"}]) => [{:name "project-1"}
+                                                                            {:name "project-1"}
+                                                                            {:name "project-2"}
+                                                                            {:name "project-2"}])
 
 (facts "filters by date"
        (fact "before"
