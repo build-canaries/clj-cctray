@@ -1,5 +1,5 @@
 <Projects>
-    <Project name="success-sleeping-project :: stage1 :: job1"
+    <Project name="success-sleeping-project"
              activity="Sleeping"
              lastBuildStatus="Success"
              lastBuildLabel="8"
@@ -7,7 +7,7 @@
              nextBuildTime="2005-10-04T14:31:52.450+01:00"
              webUrl="http://some-url"/>
 
-    <Project name="success-building-project :: stage1 :: job1"
+    <Project name="success-building-project"
              activity="Building"
              lastBuildStatus="Success"
              lastBuildLabel="8"
@@ -15,7 +15,7 @@
              nextBuildTime="2005-10-04T14:31:52.450+01:00"
              webUrl="http://some-url"/>
 
-    <Project name="failure_sleeping_project :: stage3 :: job3"
+    <Project name="failure_sleeping_project"
              activity="Sleeping"
              lastBuildStatus="Failure"
              lastBuildLabel="8"
@@ -23,7 +23,7 @@
              nextBuildTime="2005-10-04T14:31:52.450+01:00"
              webUrl="http://some-url"/>
 
-    <Project name="failure_building_project :: stage3 :: job3"
+    <Project name="failure_building_project"
              activity="Building"
              lastBuildStatus="Failure"
              lastBuildLabel="8"

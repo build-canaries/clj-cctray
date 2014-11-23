@@ -1,4 +1,6 @@
-(ns clj-cctray.go)
+(ns clj-cctray.go
+  (:require [clojure.string :refer [split join]]
+            [clj-cctray.name :refer :all]))
 
 (def prognosis-priorities {#{:sick-building}                   :sick-building
                            #{:sick-building :sick}             :sick-building
@@ -34,3 +36,13 @@
 
 (defn distinct-projects [all-projects]
   (map to-single-entry (group-by :name all-projects)))
+
+(defn- contains-job? [split-name]
+  (> (count split-name) 2))
+
+(defn extract-name [{:keys [name]}]
+  (let [split-name (split name #"\s::\s")]
+    {:name  (first split-name)
+     :stage (second split-name)
+     :job   (if (contains-job? split-name)
+              (last split-name))}))

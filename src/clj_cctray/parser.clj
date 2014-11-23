@@ -1,7 +1,6 @@
 (ns clj-cctray.parser
   (:require [clojure.xml :as xml]
             [clojure.string :refer [split join]]
-            [clj-cctray.name :refer :all]
             [clj-cctray.health :refer :all]
             [clj-cctray.dates :refer :all]
             [clj-cctray.camel-keyword :refer :all]))
@@ -16,7 +15,7 @@
   (if (= (:tag data) :Project)
     (reduce by-modifying-attributes
             (keywordize-camel-keys (:attrs data))
-            [keyword-activity keyword-status extract-dates add-prognosis extract-name])))
+            [keyword-activity keyword-status extract-dates add-prognosis])))
 
 (defn get-projects [url]
   (->> (:content (to-map url))

@@ -11,7 +11,7 @@
 
 (fact "parses the xml into a raw map"
       (first (:content (subject/to-map test-data-url)))
-      => (contains {:attrs {:name            "success-sleeping-project :: stage1 :: job1"
+      => (contains {:attrs {:name            "success-sleeping-project"
                             :activity        "Sleeping"
                             :lastBuildStatus "Success"
                             :lastBuildLabel  "8"
@@ -22,9 +22,6 @@
 (fact "will create list of projects"
       (first (subject/get-projects test-data-url))
       => {:name              "success-sleeping-project"
-          :project-name      "success sleeping project"
-          :stage             "stage1"
-          :job               "job1"
           :activity          :sleeping
           :prognosis         :healthy
           :last-build-status :success
