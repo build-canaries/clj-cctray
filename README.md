@@ -39,16 +39,7 @@ Options allow you to modify the output based on modifiers included in the projec
 ## Map keys
 
 - `:name`
-  The name of the project exactly as it appeared in the xml file.
-
-- `:project-name`
-  The normalised name of the project.
-
-- `:stage`
-  For ThoughtWorks Go parsed projects this will be the normalised stage name.
-
-- `:job`
-  For ThoughtWorks Go parsed projects this will be the normalised job name.
+  The name of the project.
 
 - `:activity`
   The current state of the project as a keyword. Either `:sleeping`, `:building` or `:checking-modifications`.
@@ -72,6 +63,14 @@ Options allow you to modify the output based on modifiers included in the projec
 - `:prognosis`
   The derived health of the project based on the activity and last build status as a keyword. Either `:sick-building`,
   `:sick`, `:healthy`, `:healthy-building` or `:unknown`
+
+If `:go` or `:snap` are used as `:options` then the following keys will also be added.
+
+- `:stage`
+  The projects stage name.
+
+- `:job`
+  For projects job name.
 
 ## Normalised strings
 
