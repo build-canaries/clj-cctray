@@ -1,4 +1,4 @@
-(ns clj-cctray.go
+(ns clj-cctray.ci.go-snap
   (:require [clojure.string :refer [split join]]
             [clj-cctray.name :refer :all]))
 
@@ -40,9 +40,10 @@
 (defn- contains-job? [split-name]
   (> (count split-name) 2))
 
-(defn extract-name [{:keys [name]}]
-  (let [split-name (split name #"\s::\s")]
-    {:name  (first split-name)
-     :stage (second split-name)
-     :job   (if (contains-job? split-name)
-              (last split-name))}))
+(defn extract-name [project]
+  (let [split-name (split (:name project) #"\s::\s")]
+    (merge project {:name  (first split-name)
+                    :stage (second split-name)
+                    :job   (if (contains-job? split-name)
+                             (last split-name))})))
+

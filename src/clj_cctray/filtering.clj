@@ -1,8 +1,6 @@
 (ns clj-cctray.filtering
-  (:require [clj-time.core :as t]))
-
-(defn- in? [seq elm]
-  (some #(= elm %) seq))
+  (:require [clj-time.core :as t]
+            [clj-cctray.util :refer :all]))
 
 (defn by-name [name projects]
   (filter #(in? name (:name %)) projects))

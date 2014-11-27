@@ -2,6 +2,42 @@
 
 A Clojure library designed to parse the cctray format into a user friendly clojure map.
 
+## Usage
+
+```clojure
+(ns your-app.core
+  (:require [clj-cctray.core :as :parser]))
+
+(parser/get-projects "some-url")
+(parser/get-projects "some-url" :options [:some-option] :project-list-modifiers [my-fn] :project-modifiers [my-fn])
+
+; you can provide any combination of :options :project-list-modifiers and :project-modifiers
+```
+
+## Options
+
+Options allow you to modify the output based on modifiers included in the project.
+
+- `:go`
+  If the cctray is coming from a Go CI server you can provide this option to add additional Go specific parsing, such as
+  extracting stages and jobs.
+
+- `:snap`
+  If the cctray is coming from a Snap CI server you can provide this option to add additional Snap specific parsing, such as
+  extracting stages and jobs.
+
+- `:normalise`
+  This will cause the :name, :stage and :job (if they exist) to be normalised (see below for more details about normalisation)
+
+- `:normalise-name`
+  This will cause the :name to be normalised (see below for more details about normalisation)
+
+- `:normalise-stage`
+  This will cause the :stage (if it exists) to be normalised (see below for more details about normalisation)
+
+- `:normalise-job`
+  This will cause the :job (if it exists) to be normalised (see below for more details about normalisation)
+
 ## Map keys
 
 - `:name`

@@ -1,5 +1,5 @@
-(ns clj-cctray.go-test
-  (:require [clj-cctray.go :as subject]
+(ns clj-cctray.ci.go-snap-test
+  (:require [clj-cctray.ci.go-snap :as subject]
             [midje.sweet :refer :all]
             [clj-time.core :as t]))
 
@@ -89,7 +89,7 @@
        (fact ":healthy-building and :sick become :sick-building"
              (subject/pick-prognosis :healthy-building :sick) => :sick-building))
 
-(facts "extract-name splits on the :: delimiter to get the name, stage and job"
+(facts "extract-name project modifier splits on the :: delimiter to get the name, stage and job"
        (fact "extracts the name"
              (subject/extract-name {:name "name :: stage :: job"}) => (contains {:name "name"}))
 
