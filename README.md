@@ -9,9 +9,7 @@ A Clojure library designed to parse the cctray format into a user friendly cloju
   (:require [clj-cctray.core :as :parser]))
 
 (parser/get-projects "some-url")
-(parser/get-projects "some-url" :options [:some-option] :project-list-modifiers [my-fn] :project-modifiers [my-fn])
-
-; you can provide any combination of :options :project-list-modifiers and :project-modifiers
+(parser/get-projects "some-url" :options [:some-option])
 ```
 
 ## Options
