@@ -1,6 +1,6 @@
 (ns clj-cctray.core
   (:require [clj-cctray.parser :as parser]
-            [clj-cctray.modifiers :as mods]
+            [clj-cctray.name :as name]
             [clj-cctray.ci.go-snap :as snap]
             [clj-cctray.util :refer :all]))
 
@@ -9,10 +9,10 @@
 
 (def project-options {:go              snap/extract-name
                       :snap            snap/extract-name
-                      :normalise-name  mods/normalise-name
-                      :normalise-stage mods/normalise-stage
-                      :normalise-job   mods/normalise-job
-                      :normalise       [mods/normalise-name, mods/normalise-stage, mods/normalise-job]})
+                      :normalise-name  name/normalise-name
+                      :normalise-stage snap/normalise-stage
+                      :normalise-job   snap/normalise-job
+                      :normalise       [name/normalise-name, snap/normalise-stage, snap/normalise-job]})
 
 (def project-list-options {:go   snap/distinct-projects
                            :snap snap/distinct-projects})

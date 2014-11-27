@@ -11,3 +11,6 @@
 (defn normalise-string [str]
   (if-not (nil? str)
     (lower-case (sentenceize str))))
+
+(defn normalise-name [project]
+  (assoc project :name (normalise-string (:name project))))

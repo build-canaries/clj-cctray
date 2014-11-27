@@ -47,3 +47,8 @@
                     :job   (if (contains-job? split-name)
                              (last split-name))})))
 
+(defn normalise-stage [project]
+  (assoc project :stage (normalise-string (:stage project))))
+
+(defn normalise-job [project]
+  (assoc project :job (normalise-string (:job project))))

@@ -28,3 +28,7 @@
              (subject/normalise-string ..input..) => "..output.."
              (provided
                (subject/sentenceize ..input..) => ..output..)))
+
+(facts "project modifiers"
+       (fact "normalises name"
+             (subject/normalise-name {:name "SomeName", :foo :bar}) => {:name "some name", :foo :bar}))
