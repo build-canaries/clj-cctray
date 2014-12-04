@@ -32,7 +32,8 @@
   (parse-options options all-post-processors))
 
 (defn get-projects [url & {:keys [options]}]
-  (apply-processors (post-processors options)
-                   (map (partial apply-processors (project-processors options))
-                        (apply-processors (pre-processors options)
-                                         (parser/get-projects url)))))
+  (->>
+    (parser/get-projects url)
+    (apply-processors (pre-processors options))
+    (map (partial apply-processors (project-processors options)))
+    (apply-processors (post-processors options))))
