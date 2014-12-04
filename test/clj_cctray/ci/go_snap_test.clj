@@ -52,12 +52,12 @@
                                           :prognosis       :sick}])
              => [{:name            "service-name"
                   :stage           "build"
-                  :job             nil
+                  :job             "unit-test"
                   :last-build-time (t/date-time 2014 10 07 14 24 22)
                   :prognosis       :sick}
                  {:name            "diffrerent-service-name"
                   :stage           "build"
-                  :job             nil
+                  :job             "unit-test"
                   :last-build-time (t/date-time 2014 10 07 14 24 22)
                   :prognosis       :sick-building}]))
 

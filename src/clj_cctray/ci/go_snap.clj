@@ -24,12 +24,12 @@
 (defn- by-prognosis [previous current]
   (pick-prognosis previous (:prognosis current)))
 
-(defn- jobs [project]
-  (not (:job project)))
+(defn- stages [project]
+  (:job project))
 
 (defn- to-single-entry [[_ projects-by-name]]
   (merge (->>
-           (filter jobs projects-by-name)
+           (filter stages projects-by-name)
            (sort-by :last-build-time)
            (last))
          {:prognosis (reduce by-prognosis :unknown projects-by-name)}))
