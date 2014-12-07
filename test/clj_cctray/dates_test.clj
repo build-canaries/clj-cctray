@@ -19,7 +19,10 @@
              (subject/parse-date "2014-10-07T12:51:38.123") => (t/date-time 2014 10 7 12 51 38 123))
 
        (fact "nil"
-             (subject/parse-date nil) => nil))
+             (subject/parse-date nil) => nil)
+
+       (fact "empty"
+             (subject/parse-date "") => nil))
 
 (facts "extracting dates"
        (background

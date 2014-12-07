@@ -1,6 +1,7 @@
 (ns clj-cctray.dates
   (:require [clj-time.format :as f]
-            [clj-time.core :as t]))
+            [clj-time.core :as t]
+            [clojure.string :refer [blank?]]))
 
 (def xs-date-time-format-no-milli "yyyy-MM-dd'T'HH:mm:ssZ")
 (def xs-date-time-format-no-milli-or-timezone "yyyy-MM-dd'T'HH:mm:ss")
@@ -14,7 +15,7 @@
                               xs-date-time-format-no-milli-or-timezone))
 
 (defn parse-date [s]
-  (if-not (nil? s) (f/parse date-parser s)))
+  (if-not (blank? s) (f/parse date-parser s)))
 
 (defn extract-dates [{:keys [last-build-time next-build-time]}]
   {:last-build-time (parse-date last-build-time)
