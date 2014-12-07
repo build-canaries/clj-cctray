@@ -80,6 +80,14 @@ Normalised strings are lower case and "sentenceized" which means camel, snake an
 CamelCased_Snake-Kebab => camel cased snake kebab
 ```
 
+## HTTPS
+
+To allow for an easier first use `clj-cctray` does not check SSL certificates.
+
+## Local files and remote files can be read
+
+By default, you can load local files on your disk and remote files over http or https. If you are using `clj-cctray` on a webserver then we recommend you lock down the options to only allow reading over http or https.
+
 ## Installation
 
 `clj-cctray` is available as a Maven artifact from [Clojars](http://clojars.org/clj-cctray)
