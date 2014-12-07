@@ -1,12 +1,13 @@
 (ns clj-cctray.parser
   (:require [clojure.xml :as xml]
             [clojure.string :refer [split join]]
+            [clj-cctray.reader :refer :all]
             [clj-cctray.health :refer :all]
             [clj-cctray.dates :refer :all]
             [clj-cctray.camel-keyword :refer :all]))
 
 (defn to-map [url]
-  (xml/parse url))
+  (xml/parse (xml-reader url)))
 
 (defn- by-modifying-attributes [attributes fn]
   (merge attributes (fn attributes)))
