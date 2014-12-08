@@ -14,7 +14,7 @@ A Clojure library designed to parse the cctray format into a user friendly cloju
 
 ## Options
 
-Options are a map of keywords with values, that can be passed to modify the returned map in some way or set global parsing settings.
+Options are a map of keywords with values that can be passed to modify the returned project map list in some way or set global library settings.
 
 Most options will require the value to be in a specific format and checks are not performed, this is your responsibility. Failure to set the value correctly will most likely result in an exception being thrown.
 
