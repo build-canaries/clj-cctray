@@ -9,30 +9,26 @@ A Clojure library designed to parse the cctray format into a user friendly cloju
   (:require [clj-cctray.core :as :parser]))
 
 (parser/get-projects "some-url")
-(parser/get-projects "some-url" :options [:some-option])
+(parser/get-projects "some-url" :options {:some-option "the-value"})
 ```
 
 ## Options
 
-Options allow you to modify the output based on modifiers included in the project. Options are a map of keywords with
-values, most options will require it's value to be in a specific format. Extensive checks are currently not performed
-on option values to ensure this is the case, this is the responsibility of the user of this library.
+Options are a map of keywords with values, that can be passed to modify the returned map in some way or set global parsing settings.
+
+Most options will require the value to be in a specific format and checks are not performed, this is your responsibility. Failure to set the value correctly will most likely result in an exception being thrown.
 
 - `:server`
-  A keyword representing the CI server the xml is coming from to allow any server specific parsing. Currently the only
-  servers that require specific parsing are `:go` and `:snap`.
+  A keyword representing the CI server the xml is coming from to allow any server specific parsing. Currently the only values that trigger specific parsing are `:go` and `:snap` any other values will result in this option being ignored.
 
 - `:normalise`
-  This will cause various names (if they exist) to be normalised (see below for more details about normalisation). Can
-  take the values `:all`, `:name`, `:stage` or `:job`.
+  This will cause various map keys (if they exist) to be normalised (see below for more details about normalisation). Can take the values `:all` (to noramlise all the following keys), `:name`, `:stage` or `:job` (to just normalise that key).
 
 - `:strict-certificate-checks`
-  By default SSL certificates are not checked (more info below), setting this option to `true` will cause them to be
-  checked. Can also be set to `false` but since this is the default behaviour there is no reason to do so.
+  By default SSL certificates are not checked (more info below), setting this option to `true` will cause this to happen.
 
 - `:http-timeout-seconds`
-  Setting this option to any valid `integer` will set the timeout of http connections in seconds. The default timeout
-  is 30 seconds.
+  Setting this option to any valid `integer` will set the timeout of http connections in seconds. The default timeout is 30 seconds.
 
 ## Map keys
 
