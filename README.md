@@ -9,7 +9,7 @@ A Clojure library designed to parse the cctray format into a user friendly cloju
   (:require [clj-cctray.core :as :parser]))
 
 (parser/get-projects "some-url")
-(parser/get-projects "some-url" :options {:some-option "the-value"})
+(parser/get-projects "some-url" {:some-option "the-value"})
 ```
 
 ## Options
@@ -39,7 +39,7 @@ Most options will require the value to be in a specific format and checks are no
   The current state of the project as a keyword. Either `:sleeping`, `:building` or `:checking-modifications`.
 
 - `:last-build-status`
-  A brief description of the last build as a keyword. Either `:success`, `:failure`, `:exception` or `:unknown`.
+  A brief description of the last build as a keyword. Either `:success`, `:failure`, `:error`, `:exception` or `:unknown`.
 
 - `:last-build-label`
   The build label exactly as it appeared in the xml file.
@@ -73,10 +73,6 @@ Normalised strings are lower case and "sentenceized" which means camel, snake an
 ```
 CamelCased_Snake-Kebab => camel cased snake kebab
 ```
-
-## HTTPS
-
-To allow for an easier first use `clj-cctray` does not check SSL certificates by default.
 
 ## Local files and remote files can be read
 

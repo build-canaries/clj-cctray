@@ -38,15 +38,17 @@
 (defn post-processors [options]
   (parse-options options post-processors-mappings))
 
-(def ^:private default-options {:strict-certificate-checks (not reader/http-kit-insecure?)
-                                :http-timeout-seconds      reader/http-kit-timeout})
+(def ^:private default-options {:strict-certificate-checks (not reader/http-client-insecure?)
+                                :http-timeout-seconds      reader/http-client-timeout})
 
-(defn get-projects [url & {:keys [options]
-                           :or   {options default-options}}]
-  (binding [reader/http-kit-insecure? (not (:strict-certificate-checks options))
-            reader/http-kit-timeout (:http-timeout-seconds options)]
-    (->>
-      (parser/get-projects url)
-      (apply-processors (pre-processors options))
-      (map (partial apply-processors (project-processors options)))
-      (apply-processors (post-processors options)))))
+(defn get-projects
+  ([url] (get-projects url {}))
+  ([url user-supplied-options]
+    (let [options (merge default-options user-supplied-options)]
+      (binding [reader/http-client-insecure? (not (:strict-certificate-checks options))
+                reader/http-client-timeout (:http-timeout-seconds options)]
+        (->>
+          (parser/get-projects url)
+          (apply-processors (pre-processors options))
+          (map (partial apply-processors (project-processors options)))
+          (apply-processors (post-processors options)))))))
