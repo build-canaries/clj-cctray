@@ -1,25 +1,25 @@
 (ns clj-cctray.reader
-  (:require [org.httpkit.client :as httpkit]
+  (:require [clj-http.client :as client]
             [clojure.string :refer [lower-case]]))
 
-(def ^:dynamic http-kit-insecure? true)
-(def ^:dynamic http-kit-timeout 30)
+(def ^:dynamic http-client-insecure? true)
+(def ^:dynamic http-client-timeout 30)
 
-(defn http-kit-options [] {:insecure? http-kit-insecure?
-                           :timeout   (* http-kit-timeout 1000)
+(defn http-client-options [] {:insecure? http-client-insecure?
+                           :timeout   (* http-client-timeout 1000)
                            :headers   {"Accept" "application/xml"}})
 
-(defn http-read-unsecured-httpkit [url]
-  (:body @(httpkit/get url (http-kit-options))))
+(defn http-get [url]
+  (:body (client/get url (http-client-options))))
 
-(defn http-read-unsecured->String [url]
-  (let [raw-response (http-read-unsecured-httpkit url)]
+(defn http-get->String [url]
+  (let [raw-response (http-get url)]
     (java.io.ByteArrayInputStream. (.getBytes raw-response))))
 
 (defn decide-reader [url]
-  (if (.startsWith (lower-case url) "http") :httpkit :standard))
+  (if (.startsWith (lower-case url) "http") :http-client :standard))
 
-(def readers {:httpkit  http-read-unsecured->String
+(def readers {:http-client  http-get->String
               :standard identity})
 
 (defn xml-reader [url]
