@@ -8,9 +8,13 @@
   {:activity (keywordize-camel activity)})
 
 (defn add-prognosis [{:keys [last-build-status activity]}]
-  (cond
-    (and (= last-build-status :success) (= activity :sleeping)) {:prognosis :healthy}
-    (and (= last-build-status :success) (= activity :building)) {:prognosis :healthy-building}
-    (and (= last-build-status :failure) (= activity :sleeping)) {:prognosis :sick}
-    (and (= last-build-status :failure) (= activity :building)) {:prognosis :sick-building}
-    :else {:prognosis :unknown}))
+  (let [sleeping (= activity :sleeping)
+        building (= activity :building)
+        success (= last-build-status :success)
+        failure (contains? #{:error :failure} last-build-status)]
+    (cond
+      (and success sleeping) {:prognosis :healthy}
+      (and success building) {:prognosis :healthy-building}
+      (and failure sleeping) {:prognosis :sick}
+      (and failure building) {:prognosis :sick-building}
+      :else {:prognosis :unknown})))

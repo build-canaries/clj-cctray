@@ -12,15 +12,17 @@
 
 (tabular "will say if the build is healthy"
          (fact (subject/add-prognosis {:last-build-status ?status :activity ?activity}) => {:prognosis ?healthy})
-         ?status ?activity ?healthy
-         :success :sleeping :healthy
-         :success :building :healthy-building
-         :failure :sleeping :sick
-         :failure :building :sick-building
-         "random" "random" :unknown
-         :success nil :unknown
-         :failure nil :unknown
-         nil :sleeping :unknown
-         nil :building :unknown
-         nil nil :unknown)
+         ?status   ?activity  ?healthy
+         :success  :sleeping  :healthy
+         :success  :building  :healthy-building
+         :failure  :sleeping  :sick
+         :failure  :building  :sick-building
+         :error    :sleeping  :sick
+         :error    :building  :sick-building
+         "random"  "random"   :unknown
+         :success  nil        :unknown
+         :failure  nil        :unknown
+         nil       :sleeping  :unknown
+         nil       :building  :unknown
+         nil       nil        :unknown)
 
