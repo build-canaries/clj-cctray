@@ -2,38 +2,51 @@
   (:require [clj-cctray.parser :as parser]
             [clj-cctray.name :as name]
             [clj-cctray.ci.go-snap :as snap]
+            [clj-cctray.reader :as reader]
             [clj-cctray.util :refer :all]))
+
+(defn- cruise-family [value]
+  #(or (= value :go)
+       (= value :snap)))
 
 (defn- apply-processors [processors thing]
   (reduce #(%2 %1) thing processors))
 
-(def ^:private all-project-processors {:go              snap/extract-name
-                                       :snap            snap/extract-name
-                                       :normalise-name  name/normalise-name
-                                       :normalise-stage snap/normalise-stage
-                                       :normalise-job   snap/normalise-job
-                                       :normalise       [name/normalise-name, snap/normalise-stage, snap/normalise-job]})
+(defn project-processors-mappings [[option value]]
+  (cond
+    (and (= :server option) (cruise-family value)) snap/extract-name
+    (and (= :normalise option) (= :name value)) name/normalise-name
+    (and (= :normalise option) (= :stage value)) snap/normalise-stage
+    (and (= :normalise option) (= :job value)) snap/normalise-job
+    (and (= :normalise option) (= :all value)) [name/normalise-name, snap/normalise-stage, snap/normalise-job]))
 
-(def ^:private all-pre-processors {})
+(defn pre-processors-mappings [[option value]])
 
-(def ^:private all-post-processors {:go   snap/distinct-projects
-                                    :snap snap/distinct-projects})
+(defn post-processors-mappings [[option value]]
+  (cond
+    (and (= :server option) (cruise-family value)) snap/distinct-projects))
 
-(defn- parse-options [options processor-map]
-  (remove nil? (flatten (map #(% processor-map) options))))
+(defn- parse-options [options processor-mappings]
+  (remove nil? (flatten (map #(processor-mappings %) options))))
 
 (defn project-processors [options]
-  (parse-options options all-project-processors))
+  (parse-options options project-processors-mappings))
 
 (defn pre-processors [options]
-  (parse-options options all-pre-processors))
+  (parse-options options pre-processors-mappings))
 
 (defn post-processors [options]
-  (parse-options options all-post-processors))
+  (parse-options options post-processors-mappings))
 
-(defn get-projects [url & {:keys [options]}]
-  (->>
-    (parser/get-projects url)
-    (apply-processors (pre-processors options))
-    (map (partial apply-processors (project-processors options)))
-    (apply-processors (post-processors options))))
+(def ^:private default-options {:strict-certificate-checks (not reader/http-kit-insecure?)
+                                :http-timeout-seconds      reader/http-kit-timeout})
+
+(defn get-projects [url & {:keys [options]
+                           :or   {options default-options}}]
+  (binding [reader/http-kit-insecure? (not (:strict-certificate-checks options))
+            reader/http-kit-timeout (:http-timeout-seconds options)]
+    (->>
+      (parser/get-projects url)
+      (apply-processors (pre-processors options))
+      (map (partial apply-processors (project-processors options)))
+      (apply-processors (post-processors options)))))
