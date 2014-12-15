@@ -86,6 +86,10 @@ By default, you can load local files on your disk and remote files over http or 
 
 See https://github.com/robertmaldon/cc_dashboard/blob/master/README.md#summary
 
+## API docs
+
+The complete API docs can be found here: http://build-canaries.github.io/clj-cctray/
+
 ## License
 
 Copyright © 2014 Build Canaries and friends
