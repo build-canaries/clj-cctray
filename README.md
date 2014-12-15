@@ -1,4 +1,4 @@
-# clj-cctray [![Build Status](https://snap-ci.com/build-canaries/clj-cctray/branch/master/build_image)](https://snap-ci.com/build-canaries/clj-cctray/branch/master)
+# clj-cctray
 
 A Clojure library designed to parse the cctray format into a user friendly clojure map.
 
@@ -89,6 +89,12 @@ See https://github.com/robertmaldon/cc_dashboard/blob/master/README.md#summary
 ## API docs
 
 The complete API docs can be found here: http://build-canaries.github.io/clj-cctray/
+
+## Contributing
+
+[![Build Status](https://snap-ci.com/build-canaries/clj-cctray/branch/master/build_image)](https://snap-ci.com/build-canaries/clj-cctray/branch/master)
+
+If you would like to add a feature/fix a bug for us please create a pull request. Be sure to include or update any tests if you want your pull request accepted, you can run the entire suite of tests using `lein midje`.
 
 ## License
 
