@@ -7,6 +7,7 @@
                            [clj-time "0.8.0"]
                            [clj-http "1.0.1"] ]
             :profiles {:dev {:plugins      [[lein-midje "3.1.3"]
-                                            [lein-ancient "0.5.5"]]
+                                            [lein-ancient "0.5.5"]
+                                            [codox "0.8.10"]]
                              :dependencies [[org.clojure/clojure "1.6.0"]
                                             [midje "1.6.3"]]}})
