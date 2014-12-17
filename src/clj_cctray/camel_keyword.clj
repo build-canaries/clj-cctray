@@ -1,11 +1,16 @@
 (ns clj-cctray.camel-keyword
+  "Utilities for converting CamelCased strings into clojure-style keywords."
   (:require [clojure.string :refer [join lower-case split]])
   (:refer-clojure :exclude [join]))
 
 (defn- threading-join [coll separator]
   (join separator coll))
 
-(defn keywordize-camel [camel-str]
+(defn keywordize-camel
+  "Converts the given camel cased string into a clojure style keyword.
+
+  For example: \"CamelCase\" => :camel-case"
+  [camel-str]
   (if camel-str
     (->
       (name camel-str)
@@ -14,5 +19,7 @@
       (lower-case)
       (keyword))))
 
-(defn keywordize-camel-keys [m]
+(defn keywordize-camel-keys
+  "Converts all the keys in the given map into keywords."
+  [m]
   (into {} (map (fn [[k v]] [(keywordize-camel k) v]) m)))

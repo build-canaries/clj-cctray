@@ -1,13 +1,20 @@
 (ns clj-cctray.health
+  "Functions for extracting the health from cctray xml."
   (:require [clj-cctray.camel-keyword :refer :all]))
 
-(defn keyword-status [{:keys [last-build-status]}]
+(defn keyword-status
+  "Converts the last build status value into a keyword."
+  [{:keys [last-build-status]}]
   {:last-build-status (keywordize-camel last-build-status)})
 
-(defn keyword-activity [{:keys [activity]}]
+(defn keyword-activity
+  "Converts the activity value into a keyword."
+  [{:keys [activity]}]
   {:activity (keywordize-camel activity)})
 
-(defn add-prognosis [{:keys [last-build-status activity]}]
+(defn add-prognosis
+  "Returns a prognosis which is base on the last build status and activity."
+  [{:keys [last-build-status activity]}]
   (let [sleeping (= activity :sleeping)
         building (= activity :building)
         success (= last-build-status :success)

@@ -1,4 +1,7 @@
-(ns clj-cctray.util)
+(ns clj-cctray.util
+  "Utility functions.")
 
-(defn in? [seq elm]
+(defn in?
+  "Returns true if the given element is in the given sequence."
+  [seq elm]
   (some #(= elm %) seq))
