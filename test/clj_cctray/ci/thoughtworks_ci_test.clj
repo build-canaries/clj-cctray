@@ -1,5 +1,5 @@
-(ns clj-cctray.ci.go-snap-test
-  (:require [clj-cctray.ci.go-snap :as subject]
+(ns clj-cctray.ci.thoughtworks-ci-test
+  (:require [clj-cctray.ci.thoughtworks-ci :as subject]
             [midje.sweet :refer :all]
             [clj-time.core :as t]))
 

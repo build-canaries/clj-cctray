@@ -1,4 +1,4 @@
-(ns clj-cctray.ci.go-snap
+(ns clj-cctray.ci.thoughtworks-ci
   "Functions specific to the ThoughtWorks Go and Snap CI servers."
   (:require [clojure.string :refer [split join]]
             [clj-cctray.name :refer :all]))
