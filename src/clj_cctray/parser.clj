@@ -5,7 +5,7 @@
             [clj-cctray.reader :refer :all]
             [clj-cctray.health :refer :all]
             [clj-cctray.dates :refer :all]
-            [clj-cctray.camel-keyword :refer :all]))
+            [clj-cctray.util :refer :all]))
 
 (defn to-map
   "Converts the cctray xml at the given url into an ugly map matching the structure of the xml."

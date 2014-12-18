@@ -1,6 +1,6 @@
 (ns clj-cctray.health
   "Functions for extracting the health from cctray xml."
-  (:require [clj-cctray.camel-keyword :refer :all]))
+  (:require [clj-cctray.util :refer :all]))
 
 (defn keyword-status
   "Converts the last build status value into a keyword."
