@@ -10,7 +10,7 @@
                               :timeout   (* http-client-timeout 1000)
                               :headers   {"Accept" "application/xml"}})
 
-(defn http-get [url]
+(defn- http-get [url]
   (:body (client/get url (http-client-options))))
 
 (defn http-get->String [url]
@@ -18,11 +18,11 @@
     (java.io.ByteArrayInputStream. (.getBytes raw-response))))
 
 (defn decide-reader [url]
-  (if (.startsWith (lower-case url) "http") :http-client :standard))
+  (if (.startsWith (lower-case url) "http")
+    http-get->String
+    identity))
 
-(def readers {:http-client http-get->String
-              :standard    identity})
-
-(defn xml-reader [url]
-  (let [reader (decide-reader url)]
-    ((reader readers) url)))
+(defn xml-reader
+  "Returns an xml reader to use based on the format of the given url."
+  [url]
+  ((decide-reader url) url))

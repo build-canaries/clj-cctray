@@ -3,16 +3,9 @@
             [clj-http.client :as client]
             [midje.sweet :refer :all]))
 
-(facts "can decide what to use as a reader"
-       (fact "uses string as reader if not https"
-             (subject/decide-reader "some/file") => :standard)
-
-       (fact "uses httpkit as reader if https"
-             (subject/decide-reader "https://someurl") => :http-client))
-
 (facts "can dispatch to a reader"
        (fact "calls httpkit when reading https url"
-             (subject/xml-reader "https://someurl") => anything
+             (subject/xml-reader "https://someurl") => irrelevant
              (provided
                (client/get anything anything) => {:body ""}))
 

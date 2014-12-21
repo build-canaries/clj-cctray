@@ -1,7 +1,6 @@
 (ns clj-cctray.parser
   "Main functions for parsing the cctray xml."
   (:require [clojure.xml :as xml]
-            [clojure.string :refer [split join]]
             [clj-cctray.reader :refer :all]
             [clj-cctray.health :refer :all]
             [clj-cctray.dates :refer :all]
