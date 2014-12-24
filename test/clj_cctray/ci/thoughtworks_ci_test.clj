@@ -1,7 +1,10 @@
 (ns clj-cctray.ci.thoughtworks-ci-test
   (:require [clj-cctray.ci.thoughtworks-ci :as subject]
             [midje.sweet :refer :all]
+            [midje.util :refer [expose-testables]]
             [clj-time.core :as t]))
+
+(expose-testables clj-cctray.ci.thoughtworks-ci)
 
 (facts "distinct projects"
        (fact "flattens stages and jobs for the same pipeline into a single project entry"
@@ -63,31 +66,31 @@
 
 (facts "pick prognosis"
        (fact "sick building is highest priority"
-             (subject/pick-prognosis :sick-building :sick-building) => :sick-building
-             (subject/pick-prognosis :sick-building :sick) => :sick-building
-             (subject/pick-prognosis :sick-building :healthy-building) => :sick-building
-             (subject/pick-prognosis :sick-building :healthy) => :sick-building
-             (subject/pick-prognosis :sick-building :unknown) => :sick-building)
+             (pick-prognosis :sick-building :sick-building) => :sick-building
+             (pick-prognosis :sick-building :sick) => :sick-building
+             (pick-prognosis :sick-building :healthy-building) => :sick-building
+             (pick-prognosis :sick-building :healthy) => :sick-building
+             (pick-prognosis :sick-building :unknown) => :sick-building)
 
        (fact "sick is 2nd highest priority (if nothing is building)"
-             (subject/pick-prognosis :sick :sick) => :sick
-             (subject/pick-prognosis :sick :healthy) => :sick
-             (subject/pick-prognosis :sick :unknown) => :sick)
+             (pick-prognosis :sick :sick) => :sick
+             (pick-prognosis :sick :healthy) => :sick
+             (pick-prognosis :sick :unknown) => :sick)
 
        (fact "healthy building is 3rd highest priority"
-             (subject/pick-prognosis :healthy-building :healthy-building) => :healthy-building
-             (subject/pick-prognosis :healthy-building :healthy) => :healthy-building
-             (subject/pick-prognosis :healthy-building :unknown) => :healthy-building)
+             (pick-prognosis :healthy-building :healthy-building) => :healthy-building
+             (pick-prognosis :healthy-building :healthy) => :healthy-building
+             (pick-prognosis :healthy-building :unknown) => :healthy-building)
 
        (fact "healthy is 4th highest priority"
-             (subject/pick-prognosis :healthy :healthy) => :healthy
-             (subject/pick-prognosis :healthy :unknown) => :healthy)
+             (pick-prognosis :healthy :healthy) => :healthy
+             (pick-prognosis :healthy :unknown) => :healthy)
 
        (fact "unknown is lowest priority"
-             (subject/pick-prognosis :unknown :unknown) => :unknown)
+             (pick-prognosis :unknown :unknown) => :unknown)
 
        (fact ":healthy-building and :sick become :sick-building"
-             (subject/pick-prognosis :healthy-building :sick) => :sick-building))
+             (pick-prognosis :healthy-building :sick) => :sick-building))
 
 (facts "project modifiers"
        (fact "normalises stage"

@@ -19,7 +19,7 @@
                                      #{:healthy :unknown}                :healthy
                                      #{:unknown}                         :unknown})
 
-(defn pick-prognosis [prognosis-1 prognosis-2]
+(defn- ^:testable pick-prognosis [prognosis-1 prognosis-2]
   (get prognosis-priorities (set [prognosis-1 prognosis-2])))
 
 (defn- by-prognosis [previous current]
