@@ -1,0 +1,7 @@
+<Projects>
+    <Project name="build-canaries/nevergreen (master) :: test" activity="Sleeping" lastBuildLabel="133" lastBuildStatus="Success" lastBuildTime="2014-12-21T15:28:33Z" webUrl="https://snap-ci.com/build-canaries/nevergreen/branch/master/logs/defaultPipeline/133/test"/>
+    <Project name="build-canaries/nevergreen (master) :: deploy" activity="Sleeping" lastBuildLabel="133" lastBuildStatus="Success" lastBuildTime="2014-12-21T15:30:28Z" webUrl="https://snap-ci.com/build-canaries/nevergreen/branch/master/logs/defaultPipeline/133/deploy"/>
+    <Project name="build-canaries/nevergreen (master) :: Release" activity="Sleeping" lastBuildLabel="" lastBuildStatus="Unknown" lastBuildTime="" webUrl="https://snap-ci.com/build-canaries/nevergreen/branch/master/logs/defaultPipeline/133/Release"/>
+    <Project name="build-canaries/clj-cctray (master) :: test" activity="Sleeping" lastBuildLabel="28" lastBuildStatus="Success" lastBuildTime="2014-12-21T12:13:46Z" webUrl="https://snap-ci.com/build-canaries/clj-cctray/branch/master/logs/defaultPipeline/28/test"/>
+    <Project name="GentlemanHal/ring-curl (master) :: test" activity="Sleeping" lastBuildLabel="2" lastBuildStatus="Success" lastBuildTime="2014-11-29T11:09:44Z" webUrl="https://snap-ci.com/GentlemanHal/ring-curl/branch/master/logs/defaultPipeline/2/test"/>
+</Projects>
