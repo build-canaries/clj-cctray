@@ -1,5 +1,5 @@
 (ns clj-cctray.ci.thoughtworks-ci
-  "Functions specific to the ThoughtWorks built CI servers."
+  "Common functions specific to the ThoughtWorks built CI servers."
   (:require [clojure.string :refer [split join]]
             [clj-cctray.name :refer :all]))
 

@@ -58,13 +58,24 @@ Most options will require the value to be in a specific format and checks are no
   The derived health of the project based on the activity and last build status as a keyword. Either `:sick-building`,
   `:sick`, `:healthy`, `:healthy-building` or `:unknown`
 
-If `:go` or `:snap` are used as `:options` then the following keys will also be added.
+If `:go` is used as the `:server` option then the following keys will also be added:
 
 - `:stage`
   The projects stage name.
 
 - `:job`
   For projects job name.
+
+If `:snap` is used as the `:server` option then the following keys will also be added:
+
+- `:stage`
+  The projects stage name.
+
+- `:owner`
+  The name of the project owner, this is the Github user or organisation name.
+
+- `:branch`
+  The git branch name that snap is pulling from.
 
 ## Normalised strings
 

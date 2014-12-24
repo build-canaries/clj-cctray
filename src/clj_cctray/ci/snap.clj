@@ -1,12 +1,12 @@
 (ns clj-cctray.ci.snap
-  "Functions specific to the ThoughtWorks Snap CI server."
+  "Functions specific to the Snap CI server."
   (:require [clojure.string :refer [trim]]
             [clj-cctray.name :refer :all]))
 
 (defn split-name
   "Snap combines the owner, project name, git branch and stage name into the cctray xml name attribute.
 
-  This function extracts the real project name as well as the owner, branch and stage.
+  This function splits the name into individual entries in the project map.
 
   So instead of:
 

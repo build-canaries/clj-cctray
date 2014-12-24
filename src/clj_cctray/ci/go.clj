@@ -1,5 +1,5 @@
 (ns clj-cctray.ci.go
-  "Functions specific to the ThoughtWorks Go and Snap CI servers."
+  "Functions specific to the Go CI server."
   (:require [clojure.string :refer [split join]]
             [clj-cctray.name :refer :all]))
 
@@ -9,7 +9,7 @@
 (defn split-name
   "Go combines the project name, stage and job into the cctray xml name attribute, using :: as a delimter.
 
-  This function extracts the real project name as well as the stage and job.
+  This function splits the name into individual entries in the project map.
 
   So instead of:
 
