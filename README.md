@@ -64,7 +64,7 @@ If `:go` is used as the `:server` option then the following keys will also be ad
   The projects stage name.
 
 - `:job`
-  For projects job name.
+  The projects job name.
 
 If `:snap` is used as the `:server` option then the following keys will also be added:
 
