@@ -23,11 +23,11 @@
                              (parser/get-projects anything) => [{:name "name :: stage :: job1" :last-build-time (t/date-time 2014 10 07 14 24 22)}
                                                                 {:name "name :: stage :: job2" :last-build-time (t/date-time 2014 10 07 15 24 22)}]))
 
-                     (fact ":snap can be used to enabled go specific parsing"
-                           (subject/get-projects irrelevant {:server :snap}) => (contains [(contains {:name "name" :stage "stage" :job "job2"})])
+                     (fact ":snap can be used to enabled snap specific parsing"
+                           (subject/get-projects irrelevant {:server :snap}) => (contains [(contains {:name "name" :stage "stage2" :owner "owner" :branch "branch"})])
                            (provided
-                             (parser/get-projects anything) => [{:name "name :: stage :: job1" :last-build-time (t/date-time 2014 10 07 14 24 22)}
-                                                                {:name "name :: stage :: job2" :last-build-time (t/date-time 2014 10 07 15 24 22)}])))
+                             (parser/get-projects anything) => [{:name "owner/name (branch) :: stage" :last-build-time (t/date-time 2014 10 07 14 24 22)}
+                                                                {:name "owner/name (branch) :: stage2" :last-build-time (t/date-time 2014 10 07 15 24 22)}])))
 
               (facts ":normalise"
                      (fact ":name can be used to normalise names"
@@ -42,7 +42,7 @@
 
                      (fact ":job can be used to normalise jobs"
                            (subject/get-projects irrelevant {:normalise :job}) => (contains [(contains {:name "SomeName" :stage "SomeStage" :job "some job"})])
-                           (provided  
+                           (provided
                              (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob"}]))
 
                      (fact ":all can be used to normalise everything"

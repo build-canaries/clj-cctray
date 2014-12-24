@@ -89,29 +89,9 @@
        (fact ":healthy-building and :sick become :sick-building"
              (subject/pick-prognosis :healthy-building :sick) => :sick-building))
 
-(facts "extract-name project modifier splits on the :: delimiter to get the name, stage and job"
-       (fact "extracts the name"
-             (subject/extract-name {:name "name :: stage :: job"}) => (contains {:name "name"}))
-
-       (fact "extracts the stage"
-             (subject/extract-name {:name "name :: some-stage"}) => (contains {:stage "some-stage"}))
-
-       (fact "extracts the job"
-             (subject/extract-name {:name "name :: stage :: some-job"}) => (contains {:job "some-job"}))
-
-       (fact "sets stage and job to nil if no delimiter exists (ie. if parsing from non Go CI Servers)"
-             (subject/extract-name {:name "i-am-just-a-name"}) => (contains {:stage nil
-                                                                             :job   nil})))
-
 (facts "project modifiers"
        (fact "normalises stage"
              (subject/normalise-stage {:stage "SomeStage", :foo :bar}) => {:stage "some stage", :foo :bar})
 
        (fact "handles nil stage"
-             (subject/normalise-stage {:stage nil, :foo :bar}) => {:stage nil, :foo :bar})
-
-       (fact "normalises job"
-             (subject/normalise-job {:job "SomeJob", :foo :bar}) => {:job "some job", :foo :bar})
-
-       (fact "handles nil job"
-             (subject/normalise-job {:job nil, :foo :bar}) => {:job nil, :foo :bar}))
+             (subject/normalise-stage {:stage nil, :foo :bar}) => {:stage nil, :foo :bar}))

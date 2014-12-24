@@ -2,7 +2,9 @@
   "Contains the core public function to get parsed projects."
   (:require [clj-cctray.parser :as parser]
             [clj-cctray.name :as name]
-            [clj-cctray.ci.thoughtworks-ci :as tw-ci]
+            [clj-cctray.ci.thoughtworks-ci :as tw]
+            [clj-cctray.ci.go :as go]
+            [clj-cctray.ci.snap :as snap]
             [clj-cctray.reader :as reader]
             [clj-cctray.util :refer :all]))
 
@@ -15,17 +17,18 @@
 
 (defn- project-processors-mappings [[option value]]
   (cond
-    (and (= :server option) (thoughtworks-ci? value)) tw-ci/extract-name
+    (and (= :server option) (= :go value)) go/split-name
+    (and (= :server option) (= :snap value)) snap/split-name
     (and (= :normalise option) (= :name value)) name/normalise-name
-    (and (= :normalise option) (= :stage value)) tw-ci/normalise-stage
-    (and (= :normalise option) (= :job value)) tw-ci/normalise-job
-    (and (= :normalise option) (= :all value)) [name/normalise-name, tw-ci/normalise-stage, tw-ci/normalise-job]))
+    (and (= :normalise option) (= :stage value)) tw/normalise-stage
+    (and (= :normalise option) (= :job value)) go/normalise-job
+    (and (= :normalise option) (= :all value)) [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-branch snap/normalise-owner]))
 
 (defn- pre-processors-mappings [[option value]])
 
 (defn- post-processors-mappings [[option value]]
   (cond
-    (and (= :server option) (thoughtworks-ci? value)) tw-ci/distinct-projects))
+    (and (= :server option) (thoughtworks-ci? value)) tw/distinct-projects))
 
 (defn- parse-options [options processor-mappings]
   (remove nil? (flatten (map #(processor-mappings %) options))))
