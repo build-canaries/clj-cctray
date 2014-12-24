@@ -26,3 +26,13 @@
               :name   (nth matches 2)
               :branch (nth matches 3)
               :stage  (nth matches 4)}))))
+
+(defn normalise-owner
+  "Normalises the owner name in the given project map."
+  [project]
+  (assoc project :owner (normalise-string (:owner project))))
+
+(defn normalise-branch
+  "Normalises the branch name in the given project map."
+  [project]
+  (assoc project :branch (normalise-string (:branch project))))

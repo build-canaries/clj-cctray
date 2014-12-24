@@ -19,3 +19,16 @@
              (subject/split-name {:name "i-am-just-a-name"}) =not=> (contains {:stage  anything
                                                                                :owner  anything
                                                                                :branch anything})))
+
+(facts "project modifiers"
+       (fact "normalises owner"
+             (subject/normalise-owner {:owner "SomeOwner", :foo :bar}) => {:owner "some owner", :foo :bar})
+
+       (fact "handles nil owner"
+             (subject/normalise-owner {:owner nil, :foo :bar}) => {:owner nil, :foo :bar})
+
+       (fact "normalises branch"
+             (subject/normalise-branch {:branch "SomeBranch", :foo :bar}) => {:branch "some branch", :foo :bar})
+
+       (fact "handles nil branch"
+             (subject/normalise-branch {:branch nil, :foo :bar}) => {:branch nil, :foo :bar}))
