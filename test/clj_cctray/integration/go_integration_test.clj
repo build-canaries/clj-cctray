@@ -10,14 +10,17 @@
       (.exists (io/as-file test-data-url)) => true)
 
 (fact "will create list of projects"
-      (subject/get-projects test-data-url {:server :go}) => (has every? (just {:name              anything
-                                                                               :activity          keyword?
-                                                                               :prognosis         keyword?
-                                                                               :last-build-status keyword?
-                                                                               :last-build-label  anything
-                                                                               :last-build-time   anything
-                                                                               :next-build-time   anything
-                                                                               :web-url           anything
-                                                                               :stage             anything
-                                                                               :job               anything})))
+      (subject/get-projects test-data-url {:server :go}) => (has every? (contains {:name              string?
+                                                                                   :activity          keyword?
+                                                                                   :prognosis         keyword?
+                                                                                   :last-build-status keyword?
+                                                                                   :last-build-label  string?
+                                                                                   :last-build-time   anything
+                                                                                   :next-build-time   anything
+                                                                                   :web-url           string?
+                                                                                   :stage             string?
+                                                                                   :job               string?})))
+
+(fact "adds a list of messages"
+      (subject/get-projects test-data-url {:server :go}) => (has some (contains {:messages (contains string?)})))
 
