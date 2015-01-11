@@ -58,6 +58,9 @@ Most options will require the value to be in a specific format and checks are no
   The derived health of the project based on the activity and last build status as a keyword. Either `:sick-building`,
   `:sick`, `:healthy`, `:healthy-building` or `:unknown`
 
+- `:messages`
+  A seq of messages as strings that exist for this project or an empty seq if there are no messages.
+
 If `:go` is used as the `:server` option then the following keys will also be added:
 
 - `:stage`

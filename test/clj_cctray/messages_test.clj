@@ -10,12 +10,12 @@
                                                               {:tag   :message
                                                                :attrs {:text ..message-2..}}]}]}) => {:messages [..message-1.. ..message-2..]})
 
-       (fact "returns empty an seq if there is no content"
+       (fact "returns an empty seq if there is no content"
              (subject/extract-messsages {:content nil}) => {:messages []})
 
-       (fact "returns empty an seq if there are no messages"
+       (fact "returns an empty seq if there is no messages tag"
              (subject/extract-messsages {:content [{:tag :something-else}]}) => {:messages []})
 
-       (fact "returns empty an seq if there are is no messages content"
+       (fact "returns an empty seq if there is a messages tag but it has no content"
              (subject/extract-messsages {:content [{:tag     :messages
                                                     :content nil}]}) => {:messages []}))
