@@ -13,7 +13,7 @@
   {:activity (keywordize-camel activity)})
 
 (defn add-prognosis
-  "Returns a prognosis which is base on the last build status and activity."
+  "Returns a prognosis which is based on the last build status and activity."
   [{:keys [last-build-status activity]}]
   (let [sleeping (= activity :sleeping)
         building (= activity :building)

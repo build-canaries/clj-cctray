@@ -9,5 +9,7 @@
 (defn- message-content [content]
   (:content (find-messages content)))
 
-(defn extract-messsages [{:keys [content]}]
+(defn extract-messsages
+  "Extracts any messages attached to the project as a seq of strings."
+  [{:keys [content]}]
   {:messages (reduce add-message [] (message-content content))})
