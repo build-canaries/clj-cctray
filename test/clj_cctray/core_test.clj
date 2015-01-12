@@ -30,22 +30,22 @@
                                                                 {:name "owner/name (branch) :: stage2" :last-build-time (t/date-time 2014 10 07 15 24 22)}])))
 
               (facts ":normalise"
-                     (fact ":name can be used to normalise names"
-                           (subject/get-projects irrelevant {:normalise :name}) => (contains [(contains {:name "some name" :stage "SomeStage" :job "SomeJob"})])
+                     (fact "can take a collection with a keyword to normalise"
+                           (subject/get-projects irrelevant {:normalise [:name]}) => (contains [(contains {:name "some name" :stage "SomeStage" :job "SomeJob"})])
                            (provided
                              (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob"}]))
 
-                     (fact ":stage can be used to normalise stages"
-                           (subject/get-projects irrelevant {:normalise :stage}) => (contains [(contains {:name "SomeName" :stage "some stage" :job "SomeJob"})])
+                     (fact "can take a collection of mulitple keywords to normalise"
+                           (subject/get-projects irrelevant {:normalise [:name :stage]}) => (contains [(contains {:name "some name" :stage "some stage" :job "SomeJob"})])
                            (provided
                              (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob"}]))
 
-                     (fact ":job can be used to normalise jobs"
-                           (subject/get-projects irrelevant {:normalise :job}) => (contains [(contains {:name "SomeName" :stage "SomeStage" :job "some job"})])
+                     (fact "doesn't add the key with a nil value to the map if it didn't exist in the first place"
+                           (subject/get-projects irrelevant {:normalise [:foo]}) =not=> (contains [(contains {:foo anything})])
                            (provided
-                             (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob"}]))
+                             (parser/get-projects anything) => [{}]))
 
-                     (fact ":all can be used to normalise everything"
-                           (subject/get-projects irrelevant {:normalise :all}) => (contains [(contains {:name "some name" :stage "some stage" :job "some job"})])
+                     (fact "true can be used to normalise the name, stage, job and owner"
+                           (subject/get-projects irrelevant {:normalise true}) => (contains [(contains {:name "some name" :stage "some stage" :job "some job" :owner "some owner"})])
                            (provided
-                             (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob"}])))))
+                             (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob" :owner "SomeOwner"}])))))

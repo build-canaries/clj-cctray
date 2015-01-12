@@ -27,7 +27,7 @@ Most options will require the value to be in a specific format and checks are no
   A keyword representing the CI server the xml is coming from to allow any server specific parsing. Currently the only values that trigger specific parsing are `:go` and `:snap` any other values will result in this option being ignored.
 
 - `:normalise`
-  This will cause various map keys (if they exist) to be normalised (see below for more details about normalisation). Can take the values `:all` (to normalise all the following keys), `:name`, `:stage` or `:job` (to just normalise that key).
+  This will cause the given map keys (if they exist) to be normalised (see below for more details about normalisation). Can take a collection of keys to normalise or `true` to normalise the following `:name`, `:stage`, `:job` and `:owner`.
 
 ## Map keys
 

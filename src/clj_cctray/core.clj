@@ -18,10 +18,8 @@
   (cond
     (and (= :server option) (= :go value)) go/split-name
     (and (= :server option) (= :snap value)) snap/split-name
-    (and (= :normalise option) (= :name value)) name/normalise-name
-    (and (= :normalise option) (= :stage value)) tw/normalise-stage
-    (and (= :normalise option) (= :job value)) go/normalise-job
-    (and (= :normalise option) (= :all value)) [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-branch snap/normalise-owner]))
+    (and (= :normalise option) (coll? value)) (map #(partial normalise-key %) value)
+    (and (= :normalise option) value) [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-owner]))
 
 (defn- pre-processors-mappings [[option value]])
 

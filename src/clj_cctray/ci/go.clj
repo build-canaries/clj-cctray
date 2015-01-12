@@ -1,7 +1,7 @@
 (ns clj-cctray.ci.go
   "Functions specific to the Go CI server."
   (:require [clojure.string :refer [split join]]
-            [clj-cctray.name :refer :all]))
+            [clj-cctray.util :refer :all]))
 
 (defn- contains-job? [split-name]
   (> (count split-name) 2))

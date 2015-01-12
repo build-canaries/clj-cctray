@@ -1,7 +1,7 @@
 (ns clj-cctray.ci.thoughtworks-ci
   "Common functions specific to the ThoughtWorks built CI servers."
   (:require [clojure.string :refer [split join]]
-            [clj-cctray.name :refer :all]))
+            [clj-cctray.util :refer :all]))
 
 (def ^:private prognosis-priorities {#{:sick-building}                   :sick-building
                                      #{:sick-building :sick}             :sick-building

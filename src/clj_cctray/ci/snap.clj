@@ -1,7 +1,7 @@
 (ns clj-cctray.ci.snap
   "Functions specific to the Snap CI server."
   (:require [clojure.string :refer [trim]]
-            [clj-cctray.name :refer :all]))
+            [clj-cctray.util :refer :all]))
 
 (defn split-name
   "Snap combines the owner, project name, git branch and stage name into the cctray xml name attribute.
