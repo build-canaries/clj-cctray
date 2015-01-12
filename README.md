@@ -5,11 +5,16 @@ A Clojure library designed to parse the cctray format into a user friendly cloju
 ## Usage
 
 ```clojure
-(ns your-app.core
+(ns your-app.whatever
   (:require [clj-cctray.core :as :parser]))
 
-(parser/get-projects "some-url")
-(parser/get-projects "some-url" {:some-option "the-value"})
+; some-source can be a File, InputStream or String naming a URI
+
+(parser/get-projects some-source)
+
+; or with options
+
+(parser/get-projects some-source {:some-option "the-value"})
 ```
 
 ## Options
@@ -22,13 +27,7 @@ Most options will require the value to be in a specific format and checks are no
   A keyword representing the CI server the xml is coming from to allow any server specific parsing. Currently the only values that trigger specific parsing are `:go` and `:snap` any other values will result in this option being ignored.
 
 - `:normalise`
-  This will cause various map keys (if they exist) to be normalised (see below for more details about normalisation). Can take the values `:all` (to noramlise all the following keys), `:name`, `:stage` or `:job` (to just normalise that key).
-
-- `:strict-certificate-checks`
-  By default SSL certificates are not checked (more info below), setting this option to `true` will cause this to happen.
-
-- `:http-timeout-seconds`
-  Setting this option to any valid `integer` will set the timeout of http connections in seconds. The default timeout is 30 seconds.
+  This will cause various map keys (if they exist) to be normalised (see below for more details about normalisation). Can take the values `:all` (to normalise all the following keys), `:name`, `:stage` or `:job` (to just normalise that key).
 
 ## Map keys
 

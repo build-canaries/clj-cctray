@@ -1,7 +1,6 @@
 (ns clj-cctray.parser
   "Main functions for parsing the cctray xml."
   (:require [clojure.xml :as xml]
-            [clj-cctray.reader :refer :all]
             [clj-cctray.health :refer :all]
             [clj-cctray.dates :refer :all]
             [clj-cctray.messages :refer :all]
@@ -10,8 +9,8 @@
 (defn- is-project? [data]
   (= (:tag data) :Project))
 
-(defn- to-map [url]
-  (xml/parse (xml-reader url)))
+(defn- to-map [source]
+  (xml/parse source))
 
 (defn- by-modifying-attributes [attributes fn]
   (merge attributes (fn attributes)))
@@ -24,8 +23,9 @@
            (extract-messsages data))))
 
 (defn get-projects
-  "Gets a list of projects from the given url converted into a nice clojure map."
-  [url]
-  (->> (:content (to-map url))
+  "Gets a list of projects from the given source converted into a nice clojure map. The source may be a File,
+  InputStream or String naming a URI"
+  [source]
+  (->> (:content (to-map source))
        (map #(extract-attributes %))
        (remove nil?)))
