@@ -89,7 +89,7 @@ CamelCased_Snake-Kebab => camel cased snake kebab
 
 ## Local files and remote files can be read
 
-By default, you can load local files on your disk and remote files over http or https. If you are using `clj-cctray` on a webserver then we recommend you ensure only http[s] urls are being parsed.
+By default, you can load local files on your disk and remote files over http or https. If you are using `clj-cctray` on a webserver then we recommend you ensure only http[s] urls are being parsed or you load the url yourself and just pass an InputStream to `clj-cctray`.
 
 ## Installation
 
