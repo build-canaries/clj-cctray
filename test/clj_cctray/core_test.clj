@@ -2,50 +2,45 @@
   (:require [clj-cctray.core :as subject]
             [clj-cctray.parser :as parser]
             [clj-time.core :as t]
-            [midje.sweet :refer :all]))
+            [clj-cctray.ci.go :as go]
+            [clj-cctray.ci.snap :as snap]
+            [clj-cctray.ci.thoughtworks-ci :as tw]
+            [clj-cctray.name :as name]
+            [clj-cctray.util :as util]
+            [midje.sweet :refer :all]
+            [midje.util :refer [expose-testables]]))
+
+(expose-testables clj-cctray.core)
 
 (facts "getting projects"
        (fact "works without providing any options"
              (subject/get-projects ..url..) => [..project..]
              (provided
-               (parser/get-projects ..url..) => [..project..]))
+               (parser/get-projects ..url.. anything) => [..project..]))
 
        (facts "options"
               (fact "unknown options don't cause an error"
-                    (subject/get-projects irrelevant {:random-option anything}) => [..project..]
-                    (provided
-                      (parser/get-projects anything) => [..project..]))
+                    (project-modifiers {}) => [])
 
               (facts ":server"
-                     (fact ":go can be used to enabled go specific parsing"
-                           (subject/get-projects irrelevant {:server :go}) => (contains [(contains {:name "name" :stage "stage" :job "job2"})])
-                           (provided
-                             (parser/get-projects anything) => [{:name "name :: stage :: job1" :last-build-time (t/date-time 2014 10 07 14 24 22)}
-                                                                {:name "name :: stage :: job2" :last-build-time (t/date-time 2014 10 07 15 24 22)}]))
+                     (fact ":go"
+                           (project-modifiers {:server :go}) => [go/split-name])
 
-                     (fact ":snap can be used to enabled snap specific parsing"
-                           (subject/get-projects irrelevant {:server :snap}) => (contains [(contains {:name "name" :stage "stage2" :owner "owner" :branch "branch"})])
-                           (provided
-                             (parser/get-projects anything) => [{:name "owner/name (branch) :: stage" :last-build-time (t/date-time 2014 10 07 14 24 22)}
-                                                                {:name "owner/name (branch) :: stage2" :last-build-time (t/date-time 2014 10 07 15 24 22)}])))
+                     (fact ":snap"
+                           (project-modifiers {:server :snap}) => [snap/split-name]))
 
               (facts ":normalise"
-                     (fact "can take a collection with a keyword to normalise"
-                           (subject/get-projects irrelevant {:normalise [:name]}) => (contains [(contains {:name "some name" :stage "SomeStage" :job "SomeJob"})])
+                     (fact "allows a single key to be supplied"
+                           (project-modifiers {:normalise [:foo]}) => irrelevant
                            (provided
-                             (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob"}]))
+                             (#'clj-cctray.core/normalise-partial :foo) => irrelevant))
 
-                     (fact "can take a collection of mulitple keywords to normalise"
-                           (subject/get-projects irrelevant {:normalise [:name :stage]}) => (contains [(contains {:name "some name" :stage "some stage" :job "SomeJob"})])
+                     (fact "allows multiple keys to be supplied"
+                           (project-modifiers {:normalise [:foo :bar :baz]}) => irrelevant
                            (provided
-                             (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob"}]))
+                             (#'clj-cctray.core/normalise-partial :foo) => irrelevant
+                             (#'clj-cctray.core/normalise-partial :bar) => irrelevant
+                             (#'clj-cctray.core/normalise-partial :baz) => irrelevant))
 
-                     (fact "doesn't add the key with a nil value to the map if it didn't exist in the first place"
-                           (subject/get-projects irrelevant {:normalise [:foo]}) =not=> (contains [(contains {:foo anything})])
-                           (provided
-                             (parser/get-projects anything) => [{}]))
-
-                     (fact "true can be used to normalise the name, stage, job and owner"
-                           (subject/get-projects irrelevant {:normalise true}) => (contains [(contains {:name "some name" :stage "some stage" :job "some job" :owner "some owner"})])
-                           (provided
-                             (parser/get-projects anything) => [{:name "SomeName" :stage "SomeStage" :job "SomeJob" :owner "SomeOwner"}])))))
+                     (fact "true"
+                           (project-modifiers {:normalise true}) => [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-owner]))))

@@ -22,12 +22,12 @@
        :job   \"Job Name\"}"
   [project]
   (let [split-name (split (:name project) #"\s::\s")]
-    (merge project {:name  (first split-name)
-                    :stage (second split-name)
-                    :job   (if (contains-job? split-name)
-                             (last split-name))})))
+    {:name  (first split-name)
+     :stage (second split-name)
+     :job   (if (contains-job? split-name)
+              (last split-name))}))
 
 (defn normalise-job
   "Normalises the job name in the given project map."
   [project]
-  (assoc project :job (normalise-string (:job project))))
+  {:job (normalise-string (:job project))})

@@ -18,7 +18,7 @@
 
 (facts "project modifiers"
        (fact "normalises job"
-             (subject/normalise-job {:job "SomeJob", :foo :bar}) => {:job "some job", :foo :bar})
+             (subject/normalise-job {:job "SomeJob"}) => {:job "some job"})
 
        (fact "handles nil job"
-             (subject/normalise-job {:job nil, :foo :bar}) => {:job nil, :foo :bar}))
+             (subject/normalise-job {:job nil}) => {:job nil}))

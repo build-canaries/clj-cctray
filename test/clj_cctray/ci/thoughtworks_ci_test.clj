@@ -94,7 +94,7 @@
 
 (facts "project modifiers"
        (fact "normalises stage"
-             (subject/normalise-stage {:stage "SomeStage", :foo :bar}) => {:stage "some stage", :foo :bar})
+             (subject/normalise-stage {:stage "SomeStage"}) => {:stage "some stage"})
 
        (fact "handles nil stage"
-             (subject/normalise-stage {:stage nil, :foo :bar}) => {:stage nil, :foo :bar}))
+             (subject/normalise-stage {:stage nil}) => {:stage nil}))

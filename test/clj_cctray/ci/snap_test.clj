@@ -22,13 +22,13 @@
 
 (facts "project modifiers"
        (fact "normalises owner"
-             (subject/normalise-owner {:owner "SomeOwner", :foo :bar}) => {:owner "some owner", :foo :bar})
+             (subject/normalise-owner {:owner "SomeOwner"}) => {:owner "some owner"})
 
        (fact "handles nil owner"
-             (subject/normalise-owner {:owner nil, :foo :bar}) => {:owner nil, :foo :bar})
+             (subject/normalise-owner {:owner nil}) => {:owner nil})
 
        (fact "normalises branch"
-             (subject/normalise-branch {:branch "SomeBranch", :foo :bar}) => {:branch "some branch", :foo :bar})
+             (subject/normalise-branch {:branch "SomeBranch"}) => {:branch "some branch"})
 
        (fact "handles nil branch"
-             (subject/normalise-branch {:branch nil, :foo :bar}) => {:branch nil, :foo :bar}))
+             (subject/normalise-branch {:branch nil}) => {:branch nil}))

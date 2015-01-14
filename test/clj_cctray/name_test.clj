@@ -4,4 +4,4 @@
 
 (facts "project modifiers"
        (fact "normalises name"
-             (subject/normalise-name {:name "SomeName", :foo :bar}) => {:name "some name", :foo :bar}))
+             (subject/normalise-name {:name "SomeName"}) => {:name "some name"}))

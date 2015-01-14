@@ -15,17 +15,18 @@
 (defn- by-modifying-attributes [attributes fn]
   (merge attributes (fn attributes)))
 
-(defn- extract-attributes [data]
+(defn- extract-attributes [data modifiers]
   (if (is-project? data)
     (merge (reduce by-modifying-attributes
                    (keywordize-camel-keys (:attrs data))
-                   [keyword-activity keyword-status extract-dates add-prognosis])
+                   (concat [keyword-activity keyword-status extract-dates add-prognosis] modifiers))
            (extract-messsages data))))
 
 (defn get-projects
   "Gets a list of projects from the given source converted into a nice clojure map. The source may be a File,
   InputStream or String naming a URI"
-  [source]
+  ([source] (get-projects source []))
+  ([source modifiers]
   (->> (:content (to-map source))
-       (map #(extract-attributes %))
-       (remove nil?)))
+       (map #(extract-attributes % modifiers))
+       (remove nil?))))
