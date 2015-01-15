@@ -18,8 +18,8 @@
        :stage  \"Stage Name\"
        :owner  \"Owner\"
        :branch \"branch\"}"
-  [project]
-  (let [matches (map trim (re-find #"^(.+?)/(.+?) \((.+?)\) :: (.*)$" (:name project)))]
+  [{:keys [name]}]
+  (let [matches (map trim (re-find #"^(.+?)/(.+?) \((.+?)\) :: (.*)$" name))]
     (if (= (count matches) 5)
       {:owner  (nth matches 1)
        :name   (nth matches 2)
@@ -28,10 +28,10 @@
 
 (defn normalise-owner
   "Normalises the owner name in the given project map."
-  [project]
-  {:owner (normalise-string (:owner project))})
+  [{:keys [owner]}]
+  {:owner (normalise-string owner)})
 
 (defn normalise-branch
   "Normalises the branch name in the given project map."
-  [project]
-  {:branch (normalise-string (:branch project))})
+  [{:keys [branch]}]
+  {:branch (normalise-string branch)})

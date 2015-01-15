@@ -45,8 +45,8 @@
 
 (defn normalise-stage
   "Normalises the stage name in the given project map."
-  [project]
-  {:stage (normalise-string (:stage project))})
+  [{:keys [stage]}]
+  {:stage (normalise-string stage)})
 
 (defn thoughtworks-server? [value]
   #(or (= value :go)

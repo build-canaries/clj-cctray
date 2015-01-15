@@ -5,5 +5,5 @@
 
 (defn normalise-name
   "Normalise the project name in the given project map."
-  [project]
-  {:name (normalise-string (:name project))})
+  [{:keys [name]}]
+  {:name (normalise-string name)})

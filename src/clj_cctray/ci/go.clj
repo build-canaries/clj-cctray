@@ -20,8 +20,8 @@
       {:name  \"Project Name\"
        :stage \"Stage Name\"
        :job   \"Job Name\"}"
-  [project]
-  (let [split-name (split (:name project) #"\s::\s")]
+  [{:keys [name]}]
+  (let [split-name (split name #"\s::\s")]
     {:name  (first split-name)
      :stage (second split-name)
      :job   (if (contains-job? split-name)
@@ -29,5 +29,5 @@
 
 (defn normalise-job
   "Normalises the job name in the given project map."
-  [project]
-  {:job (normalise-string (:job project))})
+  [{:keys [job]}]
+  {:job (normalise-string job)})
