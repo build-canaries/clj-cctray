@@ -27,7 +27,11 @@ Most options will require the value to be in a specific format and checks are no
   A keyword representing the CI server the xml is coming from to allow any server specific parsing. Currently the only values that trigger specific parsing are `:go` and `:snap` any other values will result in this option being ignored.
 
 - `:normalise`
-  This will cause the given map keys (if they exist) to be normalised (see below for more details about normalisation). Can take a collection of keys to normalise or `true` to normalise the following `:name`, `:stage`, `:job` and `:owner`.
+  This will cause the given map keys (if they exist) to be normalised (see below for more details about normalisation). Can take a collection of keys to normalise or a `truthy` value to normalise the following `:name`, `:stage`, `:job` and `:owner`.
+
+- `:print-dates`
+  This causes the next and last build times to be printed out as strings instead of being returned as DateTime objects. Can take a string specifying a format to use or a `truthy` value to use the ISO format.
+  A complete list of format patterns can be found on the [Joda-Time website](http://www.joda.org/joda-time/key_format.html)
 
 ## Map keys
 

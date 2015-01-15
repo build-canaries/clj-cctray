@@ -6,7 +6,7 @@
             [clj-cctray.ci.snap :as snap]
             [clj-cctray.ci.thoughtworks-ci :as tw]
             [clj-cctray.name :as name]
-            [clj-cctray.util :as util]
+            [clj-cctray.dates :as dates]
             [midje.sweet :refer :all]
             [midje.util :refer [expose-testables]]))
 
@@ -43,4 +43,15 @@
                              (#'clj-cctray.core/normalise-partial :baz) => irrelevant))
 
                      (fact "true"
-                           (project-modifiers {:normalise true}) => [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-owner]))))
+                           (project-modifiers {:normalise true}) => [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-owner]))
+
+              (facts ":print-dates"
+                     (fact "uses the iso format by default"
+                           (project-modifiers {:print-dates true}) => irrelevant
+                           (provided
+                             (#'clj-cctray.core/print-dates-partial "yyyy-MM-dd'T'HH:mm:ss.SSSZZ") => irrelevant))
+
+                     (fact "uses the given value if it's a string"
+                           (project-modifiers {:print-dates "yyyy-MM-dd"}) => irrelevant
+                           (provided
+                             (#'clj-cctray.core/print-dates-partial "yyyy-MM-dd") => irrelevant)))))

@@ -5,6 +5,7 @@
             [clj-cctray.ci.thoughtworks-ci :as tw]
             [clj-cctray.ci.go :as go]
             [clj-cctray.ci.snap :as snap]
+            [clj-cctray.dates :as dates]
             [clj-cctray.util :refer :all]))
 
 (defn- apply-processors [processors thing]
@@ -13,12 +14,17 @@
 (defn- normalise-partial [k]
   (partial normalise-key k))
 
+(defn- print-dates-partial [k]
+  (partial dates/print-dates k))
+
 (defn- project-modifiers-mappings [[option value]]
   (cond
     (and (= :server option) (= :go value)) go/split-name
     (and (= :server option) (= :snap value)) snap/split-name
     (and (= :normalise option) (coll? value)) (map #(normalise-partial %) value)
-    (and (= :normalise option) value) [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-owner]))
+    (and (= :normalise option) value) [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-owner]
+    (and (= :print-dates option) (string? value)) (print-dates-partial value)
+    (and (= :print-dates option) value) (print-dates-partial dates/iso-format)))
 
 (defn- post-processors-mappings [[option value]]
   (cond

@@ -37,3 +37,22 @@
              (subject/extract-dates {:next-build-time ..next..}) => (contains {:next-build-time ..parsed-next..})
              (provided
                (subject/parse-date ..next..) => ..parsed-next..)))
+
+(facts "print dates"
+       (fact "defaults to iso format if format is nil"
+             (subject/print-dates nil {:last-build-time (t/date-time 2015 1 14 22 20 38)}) => (contains {:last-build-time "2015-01-14T22:20:38.000+00:00"}))
+
+       (fact "defaults to iso format if format is blank"
+             (subject/print-dates "" {:last-build-time (t/date-time 2015 1 14 22 20 38)}) => (contains {:last-build-time "2015-01-14T22:20:38.000+00:00"}))
+
+       (fact "last build time"
+             (subject/print-dates "yyyy-MM-dd" {:last-build-time (t/date-time 2015 1 14 22 20 38)}) => (contains {:last-build-time "2015-01-14"}))
+
+       (fact "handles nil last build time"
+             (subject/print-dates "HH:mm:ss.SSSZZ" {}) => (contains {:last-build-time nil}))
+
+       (fact "next build time"
+             (subject/print-dates "HH:mm:ss.SSSZZ" {:next-build-time (t/date-time 2015 1 14 22 27 38)}) => (contains {:next-build-time "22:27:38.000+00:00"}))
+
+       (fact "handles nil next build time"
+             (subject/print-dates "HH:mm:ss.SSSZZ" {}) => (contains {:next-build-time nil})))
