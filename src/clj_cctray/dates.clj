@@ -5,7 +5,7 @@
             [clojure.string :refer [blank?]])
   (:import (org.joda.time DateTime)))
 
-(def iso-format "yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+(def iso-format "Format string in the ISO 8601 format, yyyy-MM-dd'T'HH:mm:ss.SSSZZ" "yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
 
 (def ^:private xs-date-time-format-no-milli "yyyy-MM-dd'T'HH:mm:ssZ")
 (def ^:private xs-date-time-format-no-milli-or-timezone "yyyy-MM-dd'T'HH:mm:ss")
@@ -33,7 +33,8 @@
    :next-build-time (parse-date next-build-time)})
 
 (defn print-dates
-  "Prints the last and next build times using the given string format, they must be DateTime objects to be printed successfully."
+  "Prints the last and next build times using the given string format. They must be DateTime objects to be printed
+  correctly using the format string, if any other object is found it will just be converted to a string using `str`"
   [^String format {:keys [last-build-time next-build-time]}]
   (let [formatter (f/formatter format)]
     {:last-build-time (print-date formatter last-build-time)

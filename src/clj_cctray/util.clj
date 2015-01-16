@@ -52,7 +52,13 @@
   (if-not (nil? str)
     (lower-case (sentenceize str))))
 
-(defn normalise-key [key project]
-  (if-let [value (get project key)]
-    (assoc project key (normalise-string value))
-    project))
+(defn normalise-key
+  "Normalises the given key in the given map which means it is lower cased and sentenceized.
+
+  For example:
+
+      \"Camel_SNAKE-kebab\" => \"camel snake kebab\""
+  [key map]
+  (if-let [value (get map key)]
+    (assoc map key (normalise-string value))
+    map))
