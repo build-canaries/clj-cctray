@@ -3,7 +3,7 @@
             [midje.sweet :refer :all]
             [clojure.java.io :as io]))
 
-(def test-data-url "resources/go_example.xml")
+(def test-data-url "resources/jenkins_example.xml")
 
 (fact "required test xml file exists"
       (.exists (io/as-file test-data-url)) => true)
@@ -19,7 +19,3 @@
                                                                                    :web-url           string?
                                                                                    :stage             string?
                                                                                    :job               string?})))
-
-(fact "adds a list of messages"
-      (subject/get-projects test-data-url {:server :go}) => (has some (contains {:messages (contains string?)})))
-

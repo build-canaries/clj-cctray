@@ -1,8 +1,7 @@
 (ns clj-cctray.integration.snap-integration-test
   (:require [clj-cctray.core :as subject]
             [midje.sweet :refer :all]
-            [clojure.java.io :as io]
-            [clj-time.core :as t]))
+            [clojure.java.io :as io]))
 
 (def test-data-url "resources/snap_example.xml")
 
