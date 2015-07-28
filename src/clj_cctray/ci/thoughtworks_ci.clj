@@ -25,9 +25,15 @@
 (defn- by-prognosis [previous current]
   (pick-prognosis previous (:prognosis current)))
 
+(defn- projects-to-sort [projects]
+  (let [building-projects (filter #(= (:activity %) :building) projects)]
+    (if (empty? building-projects)
+      projects
+      building-projects)))
+
 (defn- to-single-entry [[_ projects-by-name]]
   (merge (last
-           (sort-by (juxt :last-build-time :job) projects-by-name))
+           (sort-by (juxt :last-build-time :job) (projects-to-sort projects-by-name)))
          {:prognosis (reduce by-prognosis :unknown projects-by-name)}))
 
 (defn distinct-projects
