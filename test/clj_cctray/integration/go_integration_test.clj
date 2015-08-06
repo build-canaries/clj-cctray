@@ -18,7 +18,7 @@
                                                                                    :next-build-time   anything
                                                                                    :web-url           string?
                                                                                    :stage             string?
-                                                                                   :job               string?})))
+                                                                                   :job               anything})))
 
 (fact "adds a list of messages"
       (subject/get-projects test-data-url {:server :go}) => (has some (contains {:messages (contains string?)})))

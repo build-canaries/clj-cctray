@@ -26,7 +26,7 @@
   "Gets a list of projects from the given source converted into a nice clojure map. The source may be a File,
   InputStream or String naming a URI"
   ([source] (get-projects source []))
-  ([source modifiers]
+  ([source modifier-fns]
   (->> (:content (to-map source))
-       (map #(extract-attributes % modifiers))
+       (map #(extract-attributes % modifier-fns))
        (remove nil?))))

@@ -8,9 +8,6 @@
             [clj-cctray.dates :as dates]
             [clj-cctray.util :refer :all]))
 
-(defn- apply-processors [processors thing]
-  (reduce #(%2 %1) thing processors))
-
 (defn- normalise-partial [k]
   (partial normalise-key k))
 
@@ -26,18 +23,11 @@
     (and (= :print-dates option) (string? value)) (print-dates-partial value)
     (and (= :print-dates option) value) (print-dates-partial dates/iso-format)))
 
-(defn- post-processors-mappings [[option value]]
-  (cond
-    (and (= :server option) (tw/thoughtworks-server? value)) tw/distinct-projects))
-
 (defn- parse-options [options processor-mappings]
   (remove nil? (flatten (map #(processor-mappings %) options))))
 
 (defn- ^:testable project-modifiers [options]
   (parse-options options project-modifiers-mappings))
-
-(defn- post-processors [options]
-  (parse-options options post-processors-mappings))
 
 (def ^:private default-options {})
 
@@ -50,7 +40,5 @@
   about available options and the keys in each project map."
   ([source] (get-projects source {}))
   ([source user-supplied-options]
-    (let [options (merge default-options user-supplied-options)]
-      (->>
-        (parser/get-projects source (project-modifiers options))
-        (apply-processors (post-processors options))))))
+   (let [options (merge default-options user-supplied-options)]
+     (parser/get-projects source (project-modifiers options)))))
