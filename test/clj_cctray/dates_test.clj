@@ -26,7 +26,10 @@
              (parse-date nil) => nil)
 
        (fact "empty"
-             (parse-date "") => nil))
+             (parse-date "") => nil)
+
+       (fact "invalid date strings"
+             (parse-date "not-a-real-date-string") => nil))
 
 (facts "print date"
        (let [formatter (f/formatter "yyyy-MM-dd")]

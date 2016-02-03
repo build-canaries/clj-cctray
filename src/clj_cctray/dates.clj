@@ -19,7 +19,10 @@
                                         xs-date-time-format-no-milli-or-timezone))
 
 (defn- ^:testable parse-date [s]
-  (if-not (blank? s) (f/parse date-parser s)))
+  (if-not (blank? s)
+    (try
+      (f/parse date-parser s)
+      (catch IllegalArgumentException _ nil))))
 
 (defn- ^:testable print-date [formatter date]
   (if (instance? DateTime date)
