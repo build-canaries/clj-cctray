@@ -33,6 +33,10 @@
              (subject/sentenceize "firstSecondThird") => "first Second Third"
              (subject/sentenceize "FirstSecondThird") => "First Second Third")
 
+       (fact "dot seperated"
+             (subject/sentenceize "first.second.third") => "first second third"
+             (subject/sentenceize ".first.second.third.0.1.2.abc.") => "first second third 0.1.2 abc")
+
        (fact "acroynms are not split"
              (subject/sentenceize "ABC") => "ABC"
              (subject/sentenceize "somethingEndingWithABC") => "something Ending With ABC")

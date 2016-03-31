@@ -1,6 +1,6 @@
 (ns clj-cctray.util
   "Utility functions."
-  (:require [clojure.string :refer [join lower-case split replace]])
+  (:require [clojure.string :refer [join lower-case split replace trim]])
   (:refer-clojure :exclude [join replace]))
 
 (defn in?
@@ -35,12 +35,14 @@
 
   For example:
 
-      \"Camel_SNAKE-kebab\" => \"Camel SNAKE kebab\""
+      \"Camel_SNAKE-kebab.dot\" => \"Camel SNAKE kebab dot\""
   [str]
   (if-not (nil? str)
     (-> str
         (replace #"[-_]+", " ")
-        (replace #"([a-z])([A-Z])", "$1 $2"))))
+        (replace #"\.(?!\d)|(?<!\d)\.", " ")
+        (replace #"([a-z])([A-Z])", "$1 $2")
+        trim)))
 
 (defn normalise-string
   "Normalises the given string which means it is lower cased and sentenceized.
