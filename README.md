@@ -91,11 +91,16 @@ If `:snap` is used as the `:server` option then the following keys will also be 
 
 ## Normalised strings
 
-Normalised strings are lower case and "sentenceized" which means camel, snake and kebab cased words are converted to
-normal sentences with spaces.
+Normalised strings are lower case and "sentenceized" which means camel, snake, kebab and dot cased words are converted to
+normal sentences with spaces. The following exceptions apply to the splitting rules:
+                              
+1. Multiple uppercased letters in a row
+2. Digits separated by dots
+
+This is in an attempt to keep acronyms/initialisms and version numbers from getting split.
 
 ```
-CamelCased_Snake-Kebab => camel cased snake kebab
+CamelCased_SNAKE-kebab.dot_JSON-1.2.3 => camel cased snake kebab dot json 1.2.3
 ```
 
 ## Local files and remote files can be read

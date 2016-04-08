@@ -30,12 +30,17 @@
   (into {} (map (fn [[k v]] [(keywordize-camel k) v]) m)))
 
 (defn sentenceize
-  "Sentenceizes the given string which means camel, snake and kebab cased strings are turned into normal sentences
-  with spaces.
+  "Sentenceizes the given string which means camel, snake, kebab and dot cased strings are turned into normal sentences
+  with spaces. This function will not split the following:
+
+  1. Multiple uppercased letters in a row
+  2. Digits separated by dots
+
+  This is in an attempt to keep acronyms/initialisms and version numbers from getting split.
 
   For example:
 
-      \"Camel_SNAKE-kebab.dot\" => \"Camel SNAKE kebab dot\""
+      \"CamelCased_SNAKE-kebab.dot_JSON-1.2.3\" => \"Camel Cased SNAKE kebab dot JSON 1.2.3\""
   [str]
   (if-not (nil? str)
     (-> str
@@ -49,7 +54,7 @@
 
   For example:
 
-      \"Camel_SNAKE-kebab\" => \"camel snake kebab\""
+      \"CamelCased_SNAKE-kebab.DoT\" => \"camel cased snake kebab dot\""
   [str]
   (if-not (nil? str)
     (lower-case (sentenceize str))))
@@ -59,7 +64,7 @@
 
   For example:
 
-      \"Camel_SNAKE-kebab\" => \"camel snake kebab\""
+      \"CamelCased_SNAKE-kebab.DoT\" => \"camel cased snake kebab dot\""
   [key map]
   (if-let [value (get map key)]
     (assoc map key (normalise-string value))

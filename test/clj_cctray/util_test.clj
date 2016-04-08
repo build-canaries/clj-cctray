@@ -24,10 +24,12 @@
 
 (facts "sentenceize"
        (fact "hyphens"
-             (subject/sentenceize "first-second-third-fourth") => "first second third fourth")
+             (subject/sentenceize "first-second-third-fourth") => "first second third fourth"
+             (subject/sentenceize "-first-second-third-fourth-") => "first second third fourth")
 
        (fact "underscores"
-             (subject/sentenceize "first_second_third_fourth") => "first second third fourth")
+             (subject/sentenceize "first_second_third_fourth") => "first second third fourth"
+             (subject/sentenceize "_first_second_third_fourth_") => "first second third fourth")
 
        (fact "camelCase"
              (subject/sentenceize "firstSecondThird") => "first Second Third"
@@ -35,7 +37,11 @@
 
        (fact "dot seperated"
              (subject/sentenceize "first.second.third") => "first second third"
-             (subject/sentenceize ".first.second.third.0.1.2.abc.") => "first second third 0.1.2 abc")
+             (subject/sentenceize ".first.second.third.") => "first second third")
+
+       (fact "version numbers are not split"
+             (subject/sentenceize "1.2.3") => "1.2.3"
+             (subject/sentenceize "version-1.2.3") => "version 1.2.3")
 
        (fact "acroynms are not split"
              (subject/sentenceize "ABC") => "ABC"
