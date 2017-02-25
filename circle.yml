@@ -1,0 +1,12 @@
+machine:
+  java:
+    version: oraclejdk8
+compile:
+  override:
+    - ./lein.sh jar
+  post:
+    - mv ./target/clj-cctray-*.jar $CIRCLE_ARTIFACTS
+test:
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/midje/
+    - mv ./target/surefire-reports/*.xml $CIRCLE_TEST_REPORTS/midje
