@@ -1,6 +1,6 @@
 # clj-cctray
 
-[![Build Status](https://snap-ci.com/build-canaries/clj-cctray/branch/master/build_image)](https://snap-ci.com/build-canaries/clj-cctray/branch/master) [![Dependency Status](https://dependencyci.com/github/build-canaries/clj-cctray/badge)](https://dependencyci.com/github/build-canaries/clj-cctray)
+[![CircleCI](https://circleci.com/gh/build-canaries/clj-cctray.svg?style=shield)](https://circleci.com/gh/build-canaries/clj-cctray) [![Dependency Status](https://dependencyci.com/github/build-canaries/clj-cctray/badge)](https://dependencyci.com/github/build-canaries/clj-cctray)
 
 A Clojure library designed to parse the cctray format into a user friendly clojure map.
 
