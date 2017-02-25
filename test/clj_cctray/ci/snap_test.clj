@@ -21,12 +21,6 @@
                                                                                :branch anything})))
 
 (facts "project modifiers"
-       (fact "normalises owner"
-             (subject/normalise-owner {:owner "SomeOwner"}) => {:owner "some owner"})
-
-       (fact "handles nil owner"
-             (subject/normalise-owner {:owner nil}) => {:owner nil})
-
        (fact "normalises branch"
              (subject/normalise-branch {:branch "SomeBranch"}) => {:branch "some branch"})
 

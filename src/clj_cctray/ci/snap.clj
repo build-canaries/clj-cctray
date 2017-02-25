@@ -26,11 +26,6 @@
        :branch (nth matches 3)
        :stage  (nth matches 4)})))
 
-(defn normalise-owner
-  "Normalises the owner name in the given project map."
-  [{:keys [owner]}]
-  {:owner (normalise-string owner)})
-
 (defn normalise-branch
   "Normalises the branch name in the given project map."
   [{:keys [branch]}]

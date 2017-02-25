@@ -1,12 +1,12 @@
 (ns clj-cctray.core-test
   (:require [clj-cctray.core :as subject]
             [clj-cctray.parser :as parser]
-            [clj-time.core :as t]
+            [clj-cctray.ci.circle-ci :as circle]
             [clj-cctray.ci.go :as go]
             [clj-cctray.ci.snap :as snap]
             [clj-cctray.ci.thoughtworks-ci :as tw]
             [clj-cctray.name :as name]
-            [clj-cctray.dates :as dates]
+            [clj-cctray.owner :as owner]
             [midje.sweet :refer :all]
             [midje.util :refer [expose-testables]]))
 
@@ -27,7 +27,10 @@
                            (project-modifiers {:server :go}) => [go/split-name])
 
                      (fact ":snap"
-                           (project-modifiers {:server :snap}) => [snap/split-name]))
+                           (project-modifiers {:server :snap}) => [snap/split-name])
+
+                     (fact ":circle"
+                           (project-modifiers {:server :circle}) => [circle/split-name]))
 
               (facts ":normalise"
                      (fact "allows a single key to be supplied"
@@ -43,7 +46,7 @@
                              (#'clj-cctray.core/normalise-partial :baz) => irrelevant))
 
                      (fact "true"
-                           (project-modifiers {:normalise true}) => [name/normalise-name, tw/normalise-stage, go/normalise-job snap/normalise-owner]))
+                           (project-modifiers {:normalise true}) => [name/normalise-name, tw/normalise-stage, go/normalise-job owner/normalise-owner]))
 
               (facts ":print-dates"
                      (fact "uses the iso format by default"

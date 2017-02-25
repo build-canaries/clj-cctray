@@ -28,7 +28,7 @@ Failure to set the value correctly will most likely result in an exception being
 
 - `:server`
   A keyword representing the CI server the xml is coming from to allow any server specific parsing. Currently the only
-  values that trigger specific parsing are `:go` and `:snap` any other values will result in this option being ignored.
+  values that trigger specific parsing are `:go`, `:snap` and `:circle` any other values will result in this option being ignored.
 
 - `:normalise`
   This will cause the given map keys (if they exist) to be normalised (see below for more details about normalisation).
@@ -131,7 +131,7 @@ The complete API docs can be found here: http://build-canaries.github.io/clj-cct
 If you would like to add a feature/fix a bug for us please create a pull request. Be sure to include or update any tests
 if you want your pull request accepted.
 
-You can run the entire suite of tests using `lein midje`.
+You can run the entire suite of tests using `./lein.sh midje`.
 
 ## License
 
