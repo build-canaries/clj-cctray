@@ -4,7 +4,10 @@
 
 (facts "project modifiers"
        (fact "normalises owner"
-             (subject/normalise-owner {:owner "SomeOwner"}) => {:owner "some owner"})
+             (subject/normalise-owner {:owner "SomeOwner"}) => (contains {:owner "some owner"}))
+
+       (fact "returns the unnormalised owner"
+             (subject/normalise-owner {:owner "SomeOwner"}) => (contains {:unnormalised-owner "SomeOwner"}))
 
        (fact "handles nil owner"
-             (subject/normalise-owner {:owner nil}) => {:owner nil}))
+             (subject/normalise-owner {:owner nil}) => (contains {:owner nil})))

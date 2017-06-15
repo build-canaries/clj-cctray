@@ -4,7 +4,10 @@
 
 (facts "project modifiers"
        (fact "normalises stage"
-             (subject/normalise-stage {:stage "SomeStage"}) => {:stage "some stage"})
+             (subject/normalise-stage {:stage "SomeStage"}) => (contains {:stage "some stage"}))
+
+       (fact "returns the unnormalised stage"
+             (subject/normalise-stage {:stage "SomeStage"}) => (contains {:unnormalised-stage "SomeStage"}))
 
        (fact "handles nil stage"
-             (subject/normalise-stage {:stage nil}) => {:stage nil}))
+             (subject/normalise-stage {:stage nil}) => (contains {:stage nil})))

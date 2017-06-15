@@ -30,4 +30,4 @@
 (defn normalise-job
   "Normalises the job name in the given project map."
   [{:keys [job]}]
-  {:job (normalise-string job)})
+  {:job (normalise-string job) :unnormalised-job job})

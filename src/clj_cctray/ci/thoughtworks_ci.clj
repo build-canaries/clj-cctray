@@ -5,4 +5,4 @@
 (defn normalise-stage
   "Normalises the stage name in the given project map."
   [{:keys [stage]}]
-  {:stage (normalise-string stage)})
+  {:stage (normalise-string stage) :unnormalised-stage stage})

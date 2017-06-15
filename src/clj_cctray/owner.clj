@@ -6,4 +6,4 @@
 (defn normalise-owner
   "Normalises the owner name in the given project map."
   [{:keys [owner]}]
-  {:owner (normalise-string owner)})
+  {:owner (normalise-string owner) :unnormalised-owner owner})
