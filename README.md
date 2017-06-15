@@ -70,6 +70,10 @@ Failure to set the value correctly will most likely result in an exception being
 - `:messages`
   A seq of messages as strings that exist for this project or an empty seq if there are no messages.
 
+If `:normalise` is used as an option then for any key that have been normalised an `:unnormalised-` key will be added
+that contains the original unnormalised value. For example if `:name` was normalised an `:unnormalised-name` key would 
+exist.
+
 If `:go` is used as the `:server` option then the following keys will also be added:
 
 - `:stage`
