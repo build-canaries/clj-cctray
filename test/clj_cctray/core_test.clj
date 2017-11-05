@@ -3,8 +3,6 @@
             [clj-cctray.parser :as parser]
             [clj-cctray.ci.circle-ci :as circle]
             [clj-cctray.ci.go :as go]
-            [clj-cctray.ci.snap :as snap]
-            [clj-cctray.ci.thoughtworks-ci :as tw]
             [clj-cctray.name :as name]
             [clj-cctray.owner :as owner]
             [midje.sweet :refer :all]
@@ -26,9 +24,6 @@
                      (fact ":go"
                            (project-modifiers {:server :go}) => [go/split-name])
 
-                     (fact ":snap"
-                           (project-modifiers {:server :snap}) => [snap/split-name])
-
                      (fact ":circle"
                            (project-modifiers {:server :circle}) => [circle/split-name]))
 
@@ -46,7 +41,7 @@
                              (#'clj-cctray.core/normalise-partial :baz) => irrelevant))
 
                      (fact "true"
-                           (project-modifiers {:normalise true}) => [name/normalise-name, tw/normalise-stage, go/normalise-job owner/normalise-owner]))
+                           (project-modifiers {:normalise true}) => [name/normalise-name, go/normalise-stage, go/normalise-job owner/normalise-owner]))
 
               (facts ":print-dates"
                      (fact "uses the iso format by default"

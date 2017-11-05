@@ -31,3 +31,8 @@
   "Normalises the job name in the given project map."
   [{:keys [job]}]
   {:job (normalise-string job) :unnormalised-job job})
+
+(defn normalise-stage
+  "Normalises the stage name in the given project map."
+  [{:keys [stage]}]
+  {:stage (normalise-string stage) :unnormalised-stage stage})

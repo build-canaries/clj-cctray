@@ -1,6 +1,6 @@
 # clj-cctray
 
-[![CircleCI](https://circleci.com/gh/build-canaries/clj-cctray.svg?style=shield)](https://circleci.com/gh/build-canaries/clj-cctray) [![Dependency Status](https://dependencyci.com/github/build-canaries/clj-cctray/badge)](https://dependencyci.com/github/build-canaries/clj-cctray)
+[![Clojars Project](https://img.shields.io/clojars/v/clj-cctray.svg)](https://clojars.org/clj-cctray) [![CircleCI](https://circleci.com/gh/build-canaries/clj-cctray.svg?style=shield)](https://circleci.com/gh/build-canaries/clj-cctray) [![Dependency Status](https://dependencyci.com/github/build-canaries/clj-cctray/badge)](https://dependencyci.com/github/build-canaries/clj-cctray)
 
 A Clojure library designed to parse the cctray format into a user friendly clojure map.
 
@@ -82,16 +82,10 @@ If `:go` is used as the `:server` option then the following keys will also be ad
 - `:job`
   The projects job name.
 
-If `:snap` is used as the `:server` option then the following keys will also be added:
-
-- `:stage`
-  The projects stage name.
+If `:circle` is used as the `:server` option then the following keys will also be added:
 
 - `:owner`
   The name of the project owner, this is the Github user or organisation name.
-
-- `:branch`
-  The git branch name that snap is pulling from.
 
 ## Normalised strings
 

@@ -24,4 +24,13 @@
              (subject/normalise-job {:job "SomeJob"}) => (contains {:unnormalised-job "SomeJob"}))
 
        (fact "handles nil job"
-             (subject/normalise-job {:job nil}) => (contains {:job nil})))
+             (subject/normalise-job {:job nil}) => (contains {:job nil}))
+
+       (fact "normalises stage"
+             (subject/normalise-stage {:stage "SomeStage"}) => (contains {:stage "some stage"}))
+
+       (fact "returns the unnormalised stage"
+             (subject/normalise-stage {:stage "SomeStage"}) => (contains {:unnormalised-stage "SomeStage"}))
+
+       (fact "handles nil stage"
+             (subject/normalise-stage {:stage nil}) => (contains {:stage nil})))
