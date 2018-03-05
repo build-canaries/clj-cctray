@@ -16,8 +16,7 @@ jobs:
 
       - run:
           name: build
-          command: |
-            ./ci/compile.sh
+          command: ./ci/compile.sh
 
       - save_cache:
           key: v1-clj-cctray-{{ checksum "project.clj" }}
@@ -28,18 +27,24 @@ jobs:
           name: test
           command: ./ci/test.sh
 
+      - run:
+          name: move jar to different folder
+          command: |
+            mkdir ./target/clj-cctray-jar
+            mv ./target/clj-cctray-*.jar ./target/clj-cctray-jar/
+
       - store_test_results:
           path: ./target/surefire-reports
 
       - store_artifacts:
-          path: ./target/*.jar
+          path: ./target/clj-cctray-jar
 
       - persist_to_workspace:
           root: .
           paths:
             - ./resources/*.xml
             - ./ci/*
-            - ./target/clj-cctray-*.jar
+            - ./target/clj-cctray-jar/*.jar
 
 workflows:
   version: 2
