@@ -1,4 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 
-echo "running unit tests"
-./lein.sh trampoline midje
+echo "running linting"
+#./lein.sh lint
+
+echo "running the tests"
+./lein.sh test

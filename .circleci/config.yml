@@ -2,6 +2,10 @@ version: 2
 
 jobs:
   build:
+    branches:
+      ignore:
+        - gh-pages
+
     working_directory: ~/clj-cctray
 
     docker:
@@ -31,23 +35,56 @@ jobs:
           name: move jar to different folder
           command: |
             mkdir ./target/clj-cctray-jar
-            mv ./target/clj-cctray-*.jar ./target/clj-cctray-jar/
+            mv ./target/*.jar ./target/jar/
 
       - store_test_results:
           path: ./target/surefire-reports
 
       - store_artifacts:
-          path: ./target/clj-cctray-jar
+          path: ./target/jar
 
       - persist_to_workspace:
           root: .
           paths:
             - ./resources/*.xml
             - ./ci/*
-            - ./target/clj-cctray-jar/*.jar
+            - ./target/jar/*.jar
+
+  release:
+    working_directory: ~/clj-cctray
+
+    docker:
+    - image: circleci/openjdk:8-jdk
+
+    steps:
+    - attach_workspace:
+        at: ~/clj-cctray
+
+    - run:
+        name: export version
+        command: ./ci/export-version.sh
+
+    - run:
+        name: move jar back to target
+        command: mv target/jar/*.jar target/
+
+    - run:
+        name: create release on GitHub
+        command: ./ci/release-github.sh
+
+    - run:
+        name: create release on Clojars
+        command: ./ci/release-clojars.sh
 
 workflows:
   version: 2
-  build:
+  build-deploy:
     jobs:
-      - build
+    - build
+    - hold:
+        type: approval
+        requires:
+        - build
+    - release:
+        requires:
+        - hold

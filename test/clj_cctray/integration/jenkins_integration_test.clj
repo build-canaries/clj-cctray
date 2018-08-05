@@ -1,4 +1,4 @@
-(ns clj-cctray.integration.go-integration-test
+(ns clj-cctray.integration.jenkins-integration-test
   (:require [clj-cctray.core :as subject]
             [midje.sweet :refer :all]
             [clojure.java.io :as io]))
