@@ -30,7 +30,7 @@ jobs:
       - run:
           name: move jar to different folder
           command: |
-            mkdir ./target/clj-cctray-jar
+            mkdir ./target/jar
             mv ./target/*.jar ./target/jar/
 
       - store_test_results:
