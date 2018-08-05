@@ -2,10 +2,6 @@ version: 2
 
 jobs:
   build:
-    branches:
-      ignore:
-        - gh-pages
-
     working_directory: ~/clj-cctray
 
     docker:
