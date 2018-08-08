@@ -133,6 +133,6 @@ You can run the entire suite of tests using `./lein.sh midje`.
 
 ## License
 
-Copyright © 2017 Build Canaries
+Copyright © 2014 - 2018 Build Canaries
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
