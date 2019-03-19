@@ -45,7 +45,12 @@
       (is (= "1.2.3" (subject/sentenceize "1.2.3")))
       (is (= "version 1.2.3" (subject/sentenceize "version-1.2.3"))))
 
-    (testing "acroynms are not split"
+    (testing "generic placeholders in version numbers are not split"
+      (is (= "1.2.x" (subject/sentenceize "1.2.x")))
+      (is (= "versionx 1.x" (subject/sentenceize "versionx-1.x")))
+      (is (= "1.*" (subject/sentenceize "1.*"))))
+
+    (testing "acronyms are not split"
       (is (= "ABC" (subject/sentenceize "ABC")))
       (is (= "something Ending With ABC" (subject/sentenceize "somethingEndingWithABC"))))
 

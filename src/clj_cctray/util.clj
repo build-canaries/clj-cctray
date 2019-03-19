@@ -35,17 +35,18 @@
 
   1. Multiple uppercased letters in a row
   2. Digits separated by dots
+  3. x or * separated by dots
 
   This is in an attempt to keep acronyms/initialisms and version numbers from getting split.
 
   For example:
 
-      \"CamelCased_SNAKE-kebab.dot_JSON-1.2.3\" => \"Camel Cased SNAKE kebab dot JSON 1.2.3\""
+      \"CamelCased_SNAKE-kebab.dot_JSON-1.2.x\" => \"Camel Cased SNAKE kebab dot JSON 1.2.x\""
   [str]
   (if-not (nil? str)
     (-> str
         (replace #"[-_]+", " ")
-        (replace #"\.(?!\d)|(?<!\d)\.", " ")
+        (replace #"\.(?![\dx*])|(?<![\dx*])\.", " ")
         (replace #"([a-z])([A-Z])", "$1 $2")
         trim)))
 
