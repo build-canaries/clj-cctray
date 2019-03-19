@@ -1,13 +1,12 @@
 (ns clj-cctray.owner-test
   (:require [clj-cctray.owner :as subject]
-            [midje.sweet :refer :all]))
+            [clojure.test :refer :all]))
 
-(facts "project modifiers"
-       (fact "normalises owner"
-             (subject/normalise-owner {:owner "SomeOwner"}) => (contains {:owner "some owner"}))
+(deftest normalise-owner
+  (testing "normalises owner"
+    (is (= {:owner "some owner" :unnormalised-owner "SomeOwner"}
+           (subject/normalise-owner {:owner "SomeOwner"}))))
 
-       (fact "returns the unnormalised owner"
-             (subject/normalise-owner {:owner "SomeOwner"}) => (contains {:unnormalised-owner "SomeOwner"}))
-
-       (fact "handles nil owner"
-             (subject/normalise-owner {:owner nil}) => (contains {:owner nil})))
+  (testing "handles nil owner"
+    (is (= {:owner nil :unnormalised-owner nil}
+           (subject/normalise-owner {:owner nil})))))

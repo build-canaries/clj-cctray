@@ -1,5 +1,5 @@
 (ns clj-cctray.health
-  "Functions for extracting the health from cctray xml."
+  "Functions for extracting the health from CCTray XML."
   (:require [clj-cctray.util :refer :all]))
 
 (defn keyword-status

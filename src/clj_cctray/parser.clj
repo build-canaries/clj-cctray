@@ -1,5 +1,5 @@
 (ns clj-cctray.parser
-  "Main functions for parsing the cctray xml."
+  "Main functions for parsing the CCTray XML."
   (:require [clojure.xml :as xml]
             [clj-cctray.health :refer :all]
             [clj-cctray.dates :refer :all]
@@ -12,21 +12,21 @@
 (defn- to-map [source]
   (xml/parse source))
 
-(defn- by-modifying-attributes [attributes fn]
-  (merge attributes (fn attributes)))
+(defn- by-modifying-attributes [attributes thing]
+  (merge attributes (thing attributes)))
 
 (defn- extract-attributes [data modifiers]
   (if (is-project? data)
     (merge (reduce by-modifying-attributes
                    (keywordize-camel-keys (:attrs data))
                    (concat [keyword-activity keyword-status extract-dates add-prognosis] modifiers))
-           (extract-messsages data))))
+           (extract-messages data))))
 
 (defn get-projects
   "Gets a list of projects from the given source converted into a nice clojure map. The source may be a File,
   InputStream or String naming a URI"
   ([source] (get-projects source []))
-  ([source modifier-fns]
+  ([source modifiers]
   (->> (:content (to-map source))
-       (map #(extract-attributes % modifier-fns))
+       (map #(extract-attributes % modifiers))
        (remove nil?))))

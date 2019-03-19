@@ -1,36 +1,29 @@
 (ns clj-cctray.ci.go-test
   (:require [clj-cctray.ci.go :as subject]
-            [midje.sweet :refer :all]))
+            [clojure.test :refer :all]))
 
-(facts "split-name project modifier splits on the :: delimiter to get the name, stage and job"
-       (fact "extracts the name"
-             (subject/split-name {:name "name :: stage :: job"}) => (contains {:name "name"}))
+(deftest split-name
+  (testing "extracts the name, stage and job"
+    (is (= {:name "name" :stage "stage" :job "job"}
+           (subject/split-name {:name "name :: stage :: job"}))))
 
-       (fact "extracts the stage"
-             (subject/split-name {:name "name :: some-stage"}) => (contains {:stage "some-stage"}))
+  (testing "sets stage and job to nil if no delimiter exists (ie. if parsing from non Go CI Servers)"
+    (is (= {:name "i-am-just-a-name" :stage nil :job nil}
+           (subject/split-name {:name "i-am-just-a-name"})))))
 
-       (fact "extracts the job"
-             (subject/split-name {:name "name :: stage :: some-job"}) => (contains {:job "some-job"}))
+(deftest normalise-job
+  (testing "normalises job"
+    (is (= {:job "some job" :unnormalised-job "SomeJob"}
+           (subject/normalise-job {:job "SomeJob"}))))
 
-       (fact "sets stage and job to nil if no delimiter exists (ie. if parsing from non Go CI Servers)"
-             (subject/split-name {:name "i-am-just-a-name"}) => (contains {:stage nil
-                                                                           :job   nil})))
+  (testing "handles nil job"
+    (is (= {:job nil :unnormalised-job nil} (subject/normalise-job {:job nil})))))
 
-(facts "project modifiers"
-       (fact "normalises job"
-             (subject/normalise-job {:job "SomeJob"}) => (contains {:job "some job"}))
+(deftest normalise-stage
+  (testing "normalises stage"
+    (is (= {:stage "some stage" :unnormalised-stage "SomeStage"}
+           (subject/normalise-stage {:stage "SomeStage"}))))
 
-       (fact "returns the unnormalised job"
-             (subject/normalise-job {:job "SomeJob"}) => (contains {:unnormalised-job "SomeJob"}))
-
-       (fact "handles nil job"
-             (subject/normalise-job {:job nil}) => (contains {:job nil}))
-
-       (fact "normalises stage"
-             (subject/normalise-stage {:stage "SomeStage"}) => (contains {:stage "some stage"}))
-
-       (fact "returns the unnormalised stage"
-             (subject/normalise-stage {:stage "SomeStage"}) => (contains {:unnormalised-stage "SomeStage"}))
-
-       (fact "handles nil stage"
-             (subject/normalise-stage {:stage nil}) => (contains {:stage nil})))
+  (testing "handles nil stage"
+    (is (= {:stage nil :unnormalised-stage nil}
+           (subject/normalise-stage {:stage nil})))))

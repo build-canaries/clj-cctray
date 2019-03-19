@@ -1,21 +1,21 @@
 (ns clj-cctray.messages-test
   (:require [clj-cctray.messages :as subject]
-            [midje.sweet :refer :all]))
+            [clojure.test :refer :all]))
 
-(facts "extracts messages"
-       (fact "returns the message text in a seq"
-             (subject/extract-messsages {:content [{:tag     :messages
-                                                    :content [{:tag   :message
-                                                               :attrs {:text ..message-1..}}
-                                                              {:tag   :message
-                                                               :attrs {:text ..message-2..}}]}]}) => {:messages [..message-1.. ..message-2..]})
+(deftest extract-messsages
+  (testing "returns the message text in a seq"
+    (is (= {:messages ["message-1" "message-2"]} (subject/extract-messages {:content [{:tag      :messages
+                                                                                        :content [{:tag   :message
+                                                                                                   :attrs {:text "message-1"}}
+                                                                                                  {:tag   :message
+                                                                                                   :attrs {:text "message-2"}}]}]}))))
 
-       (fact "returns an empty seq if there is no content"
-             (subject/extract-messsages {:content nil}) => {:messages []})
+  (testing "returns an empty seq if there is no content"
+    (is (= {:messages []} (subject/extract-messages {:content nil}))))
 
-       (fact "returns an empty seq if there is no messages tag"
-             (subject/extract-messsages {:content [{:tag :something-else}]}) => {:messages []})
+  (testing "returns an empty seq if there is no messages tag"
+    (is (= {:messages []} (subject/extract-messages {:content [{:tag :something-else}]}))))
 
-       (fact "returns an empty seq if there is a messages tag but it has no content"
-             (subject/extract-messsages {:content [{:tag     :messages
-                                                    :content nil}]}) => {:messages []}))
+  (testing "returns an empty seq if there is a messages tag but it has no content"
+    (is (= {:messages []} (subject/extract-messages {:content [{:tag      :messages
+                                                                 :content nil}]})))))

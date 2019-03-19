@@ -1,72 +1,53 @@
 (ns clj-cctray.dates-test
   (:require [clj-cctray.dates :as subject]
-            [midje.sweet :refer :all]
-            [midje.util :refer [expose-testables]]
+            [clojure.test :refer :all]
             [clj-time.core :as t]
             [clj-time.format :as f]))
 
-(expose-testables clj-cctray.dates)
+(deftest parse-date
+  (testing "no timezone default to utc"
+    (is (= (t/date-time 2014 10 7 12 51 38) (subject/parse-date "2014-10-07T12:51:38"))))
 
-(facts "parsing dates"
-       (fact "no timezone default to utc"
-             (parse-date "2014-10-07T12:51:38") => (t/date-time 2014 10 7 12 51 38))
+  (testing "with timezone"
+    (is (= (t/date-time 2014 10 7 12 51 38) (subject/parse-date "2014-10-07T12:51:38z")))
+    (is (= (t/date-time 2014 10 7 11 51 38) (subject/parse-date "2014-10-07T12:51:38+01:00"))))
 
-       (fact "with timezone"
-             (parse-date "2014-10-07T12:51:38z") => (t/date-time 2014 10 7 12 51 38)
-             (parse-date "2014-10-07T12:51:38+01:00") => (t/date-time 2014 10 7 11 51 38))
+  (testing "with milliseconds and timezone"
+    (is (= (t/date-time 2014 10 7 12 51 38 123) (subject/parse-date "2014-10-07T12:51:38.123z")))
+    (is (= (t/date-time 2014 10 7 13 51 38 123) (subject/parse-date "2014-10-07T12:51:38.123-01:00"))))
 
-       (fact "with milliseconds and timezone"
-             (parse-date "2014-10-07T12:51:38.123z") => (t/date-time 2014 10 7 12 51 38 123)
-             (parse-date "2014-10-07T12:51:38.123-01:00") => (t/date-time 2014 10 7 13 51 38 123))
+  (testing "with milliseconds and no timezone"
+    (is (= (t/date-time 2014 10 7 12 51 38 123) (subject/parse-date "2014-10-07T12:51:38.123"))))
 
-       (fact "with milliseconds and no timezone"
-             (parse-date "2014-10-07T12:51:38.123") => (t/date-time 2014 10 7 12 51 38 123))
+  (testing "handles nil"
+    (is (nil? (subject/parse-date nil))))
 
-       (fact "nil"
-             (parse-date nil) => nil)
+  (testing "handles an empty string"
+    (is (nil? (subject/parse-date ""))))
 
-       (fact "empty"
-             (parse-date "") => nil)
+  (testing "invalid date strings"
+    (is (nil? (subject/parse-date "not-a-real-date-string")))))
 
-       (fact "invalid date strings"
-             (parse-date "not-a-real-date-string") => nil))
+(deftest print-date
+  (let [formatter (f/formatter "yyyy-MM-dd")]
 
-(facts "print date"
-       (let [formatter (f/formatter "yyyy-MM-dd")]
+    (testing "nil date prints an empty string"
+      (is (= "" (subject/print-date formatter nil))))
 
-         (fact "nil date prints an empty string"
-               (print-date formatter nil) => "")
+    (testing "non DateTime objects get to-stringed"
+      (is (= "[]" (subject/print-date formatter []))))
 
-         (fact "non DateTime objects get to-stringed"
-               (print-date formatter []) => "[]")
+    (testing "prints a DateTime"
+      (is (= "2015-01-14" (subject/print-date formatter (t/date-time 2015 1 14 22 20 38)))))))
 
-         (fact "prints a DateTime"
-               (print-date formatter (t/date-time 2015 1 14 22 20 38)) => "2015-01-14")))
+(deftest extract-dates
+  (is (= {:last-build-time (t/date-time 2019 3 15 0 0 0)
+          :next-build-time (t/date-time 2019 4 16 0 0 0)}
+         (subject/extract-dates {:last-build-time "2019-03-15T00:00:00Z"
+                                 :next-build-time "2019-04-16T00:00:00Z"}))))
 
-(facts "extracting dates"
-       (background
-         (#'clj-cctray.dates/parse-date nil) => nil)
-
-       (fact "last build time"
-             (subject/extract-dates {:last-build-time ..last..}) => (contains {:last-build-time ..parsed-last..})
-             (provided
-               (#'clj-cctray.dates/parse-date ..last..) => ..parsed-last..))
-
-       (fact "next build time"
-             (subject/extract-dates {:next-build-time ..next..}) => (contains {:next-build-time ..parsed-next..})
-             (provided
-               (#'clj-cctray.dates/parse-date ..next..) => ..parsed-next..)))
-
-(facts "print dates"
-       (background
-         (#'clj-cctray.dates/print-date anything nil) => nil)
-
-       (fact "last build time"
-             (subject/print-dates "yyyy-MM-dd" {:last-build-time ..last..}) => (contains {:last-build-time ..printed-last..})
-             (provided
-               (#'clj-cctray.dates/print-date anything ..last..) => ..printed-last..))
-
-       (fact "next build time"
-             (subject/print-dates "HH:mm:ss.SSSZZ" {:next-build-time ..next..}) => (contains {:next-build-time ..printed-next..})
-             (provided
-               (#'clj-cctray.dates/print-date anything ..next..) => ..printed-next..)))
+(deftest print-dates
+  (is (= {:last-build-time "2019-03-15"
+          :next-build-time "2019-04-16"}
+         (subject/print-dates "yyyy-MM-dd" {:last-build-time (t/date-time 2019 3 15 0 0 0)
+                                            :next-build-time (t/date-time 2019 4 16 0 0 0)}))))

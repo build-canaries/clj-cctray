@@ -1,10 +1,8 @@
 (ns clj-cctray.name-test
   (:require [clj-cctray.name :as subject]
-            [midje.sweet :refer :all]))
+            [clojure.test :refer :all]))
 
-(facts "project modifiers"
-       (fact "normalises name"
-             (subject/normalise-name {:name "SomeName"}) => (contains {:name "some name"}))
-
-       (fact "returns the unnormalised name"
-             (subject/normalise-name {:name "SomeName"}) => (contains {:unnormalised-name "SomeName"})))
+(deftest normalise-name
+  (testing "normalises name"
+    (is (= {:name              "some name"
+            :unnormalised-name "SomeName"} (subject/normalise-name {:name "SomeName"})))))

@@ -120,7 +120,7 @@ CI server, so please help us by raising issues if it doesn't work correctly with
 
 ### CC Tray XML Spec
 
-See https://github.com/robertmaldon/cc_dashboard/blob/master/README.md#summary
+See https://cctray.org
 
 ### API docs
 
@@ -131,10 +131,10 @@ The complete API docs can be found here: http://build-canaries.github.io/clj-cct
 If you would like to add a feature/fix a bug for us please create a pull request. Be sure to include or update any tests
 if you want your pull request accepted.
 
-You can run the entire suite of tests using `./lein.sh midje`.
+You can run linting and tests using `./lein.sh pre-push`.
 
 ## License
 
-Copyright © 2014 - 2018 Build Canaries
+Copyright © 2014 - 2019 Build Canaries
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.

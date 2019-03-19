@@ -1,55 +1,43 @@
 (ns clj-cctray.core-test
   (:require [clj-cctray.core :as subject]
-            [clj-cctray.parser :as parser]
             [clj-cctray.ci.circle-ci :as circle]
             [clj-cctray.ci.go :as go]
             [clj-cctray.name :as name]
             [clj-cctray.owner :as owner]
-            [midje.sweet :refer :all]
-            [midje.util :refer [expose-testables]]))
+            [clj-cctray.dates :as dates]
+            [clojure.test :refer :all]))
 
-(expose-testables clj-cctray.core)
+(deftest project-modifiers
+  (testing "unknown options don't cause an error"
+    (is (= [] (subject/project-modifiers {}))))
 
-(facts "getting projects"
-       (fact "works without providing any options"
-             (subject/get-projects ..url..) => [..project..]
-             (provided
-               (parser/get-projects ..url.. anything) => [..project..]))
+  (testing ":server"
+    (testing ":go"
+      (is (= [go/split-name] (subject/project-modifiers {:server :go}))))
 
-       (facts "options"
-              (fact "unknown options don't cause an error"
-                    (project-modifiers {}) => [])
+    (testing ":circle"
+      (is (= [circle/split-name] (subject/project-modifiers {:server :circle})))))
 
-              (facts ":server"
-                     (fact ":go"
-                           (project-modifiers {:server :go}) => [go/split-name])
+  (testing ":normalise"
+    (testing "allows a single key to be supplied"
+      (binding [subject/normalise-partial identity]
+        (is (= [:foo] (subject/project-modifiers {:normalise [:foo]})))))
 
-                     (fact ":circle"
-                           (project-modifiers {:server :circle}) => [circle/split-name]))
+    (testing "allows multiple keys to be supplied"
+      (binding [subject/normalise-partial identity]
+        (is (= [:foo :bar :baz] (subject/project-modifiers {:normalise [:foo :bar :baz]})))))
 
-              (facts ":normalise"
-                     (fact "allows a single key to be supplied"
-                           (project-modifiers {:normalise [:foo]}) => irrelevant
-                           (provided
-                             (#'clj-cctray.core/normalise-partial :foo) => irrelevant))
+    (testing "true"
+      (is (= [name/normalise-name, go/normalise-stage, go/normalise-job owner/normalise-owner]
+             (subject/project-modifiers {:normalise true})))))
 
-                     (fact "allows multiple keys to be supplied"
-                           (project-modifiers {:normalise [:foo :bar :baz]}) => irrelevant
-                           (provided
-                             (#'clj-cctray.core/normalise-partial :foo) => irrelevant
-                             (#'clj-cctray.core/normalise-partial :bar) => irrelevant
-                             (#'clj-cctray.core/normalise-partial :baz) => irrelevant))
+  (testing ":print-dates"
+    (testing "uses the iso format by default"
+      (binding [subject/print-dates-partial (fn [format]
+                                              (is (= format dates/iso-format)))]
+        (subject/project-modifiers {:print-dates true})))
 
-                     (fact "true"
-                           (project-modifiers {:normalise true}) => [name/normalise-name, go/normalise-stage, go/normalise-job owner/normalise-owner]))
-
-              (facts ":print-dates"
-                     (fact "uses the iso format by default"
-                           (project-modifiers {:print-dates true}) => irrelevant
-                           (provided
-                             (#'clj-cctray.core/print-dates-partial "yyyy-MM-dd'T'HH:mm:ss.SSSZZ") => irrelevant))
-
-                     (fact "uses the given value if it's a string"
-                           (project-modifiers {:print-dates "yyyy-MM-dd"}) => irrelevant
-                           (provided
-                             (#'clj-cctray.core/print-dates-partial "yyyy-MM-dd") => irrelevant)))))
+    (testing "uses the given value if it's a string"
+      (binding [subject/print-dates-partial (fn [format]
+                                              (is (= format "yyyy-MM-dd")))]
+        (subject/project-modifiers {:print-dates "yyyy-MM-dd"})))))

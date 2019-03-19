@@ -1,19 +1,23 @@
 (ns clj-cctray.integration.jenkins-integration-test
   (:require [clj-cctray.core :as subject]
-            [midje.sweet :refer :all]
-            [clojure.java.io :as io]))
+            [clojure.test :refer :all]
+            [clojure.java.io :as io]
+            [clj-time.core :as t]))
 
 (def test-data-url "resources/jenkins_example.xml")
 
-(fact "required test xml file exists"
-      (.exists (io/as-file test-data-url)) => true)
+(deftest jenkins-example
+  (testing "required test xml file exists"
+    (is (true? (.exists (io/as-file test-data-url)))))
 
-(fact "will create list of projects"
-      (subject/get-projects test-data-url {:server :jenkins}) => (has every? (contains {:name              string?
-                                                                                        :activity          keyword?
-                                                                                        :prognosis         keyword?
-                                                                                        :last-build-status keyword?
-                                                                                        :last-build-label  string?
-                                                                                        :last-build-time   anything
-                                                                                        :next-build-time   anything
-                                                                                        :web-url           string?})))
+  (testing "will create list of projects"
+    (is (= {:name              "example-service-build"
+            :activity          :sleeping
+            :prognosis         :healthy
+            :last-build-status :success
+            :last-build-label  "429"
+            :last-build-time   (t/date-time 2015 1 16 14 54 59)
+            :next-build-time   nil
+            :web-url           "https://host/view/Example-Service-Pipeline/job/example-service-build/"
+            :messages          []}
+           (first (subject/get-projects test-data-url {:server :jenkins}))))))

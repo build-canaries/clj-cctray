@@ -1,67 +1,69 @@
 (ns clj-cctray.util-test
   (:require [clj-cctray.util :as subject]
-            [midje.sweet :refer :all]))
+            [clojure.test :refer :all]))
 
-(fact "keywords camelCase strings"
-      (subject/keywordize-camel "camelCase") => :camel-case)
+(deftest keywordize-camel
+  (testing "keywords camelCase strings"
+    (is (= :camel-case (subject/keywordize-camel "camelCase"))))
 
-(fact "keywords camelCase keywords"
-      (subject/keywordize-camel :camelCase) => :camel-case)
+  (testing "keywords camelCase keywords"
+    (is (= :camel-case (subject/keywordize-camel :camelCase))))
 
-(fact "keywords Sentence case strings"
-      (subject/keywordize-camel "Camel") => :camel)
+  (testing "keywords Sentence case strings"
+    (is (= :camel (subject/keywordize-camel "Camel"))))
 
-(fact "keywords acroynms correctly"
-      (subject/keywordize-camel "somethingWithABC") => :something-with-abc)
+  (testing "keywords acroynms correctly"
+    (is (= :something-with-abc (subject/keywordize-camel "somethingWithABC"))))
 
-(fact "handles nil"
-      (subject/keywordize-camel nil) => nil)
+  (testing "handles nil"
+    (is (nil? (subject/keywordize-camel nil))))
 
-(fact "keywordize keys in a map"
-      (subject/keywordize-camel-keys {"camelCase"               irrelevant
-                                      "somethingElseCamelCased" irrelevant}) => {:camel-case                 irrelevant
-                                                                                 :something-else-camel-cased irrelevant})
+  (testing "keywordize keys in a map"
+    (is (= {:camel-case                 "irrelevant"
+            :something-else-camel-cased "irrelevant"} (subject/keywordize-camel-keys {"camelCase"               "irrelevant"
+                                                                                      "somethingElseCamelCased" "irrelevant"})))))
 
-(facts "sentenceize"
-       (fact "hyphens"
-             (subject/sentenceize "first-second-third-fourth") => "first second third fourth"
-             (subject/sentenceize "-first-second-third-fourth-") => "first second third fourth")
+(deftest sentenceize
+  (testing "sentenceize"
+    (testing "hyphens"
+      (is (= "first second third fourth" (subject/sentenceize "first-second-third-fourth")))
+      (is (= "first second third fourth" (subject/sentenceize "-first-second-third-fourth-"))))
 
-       (fact "underscores"
-             (subject/sentenceize "first_second_third_fourth") => "first second third fourth"
-             (subject/sentenceize "_first_second_third_fourth_") => "first second third fourth")
+    (testing "underscores"
+      (is (= "first second third fourth" (subject/sentenceize "first_second_third_fourth")))
+      (is (= "first second third fourth" (subject/sentenceize "_first_second_third_fourth_"))))
 
-       (fact "camelCase"
-             (subject/sentenceize "firstSecondThird") => "first Second Third"
-             (subject/sentenceize "FirstSecondThird") => "First Second Third")
+    (testing "camelCase"
+      (is (= "first Second Third" (subject/sentenceize "firstSecondThird")))
+      (is (= "First Second Third" (subject/sentenceize "FirstSecondThird"))))
 
-       (fact "dot seperated"
-             (subject/sentenceize "first.second.third") => "first second third"
-             (subject/sentenceize ".first.second.third.") => "first second third")
+    (testing "dot seperated"
+      (is (= "first second third" (subject/sentenceize "first.second.third")))
+      (is (= "first second third" (subject/sentenceize ".first.second.third."))))
 
-       (fact "version numbers are not split"
-             (subject/sentenceize "1.2.3") => "1.2.3"
-             (subject/sentenceize "version-1.2.3") => "version 1.2.3")
+    (testing "version numbers are not split"
+      (is (= "1.2.3" (subject/sentenceize "1.2.3")))
+      (is (= "version 1.2.3" (subject/sentenceize "version-1.2.3"))))
 
-       (fact "acroynms are not split"
-             (subject/sentenceize "ABC") => "ABC"
-             (subject/sentenceize "somethingEndingWithABC") => "something Ending With ABC")
+    (testing "acroynms are not split"
+      (is (= "ABC" (subject/sentenceize "ABC")))
+      (is (= "something Ending With ABC" (subject/sentenceize "somethingEndingWithABC"))))
 
-       (fact "nil doesn't cause a NullPointerException"
-             (subject/sentenceize nil) => nil))
+    (testing "nil doesn't cause a NullPointerException"
+      (is (nil? (subject/sentenceize nil))))))
 
-(facts "normalise string"
-       (fact "lower cases"
-             (subject/normalise-string "UPPERCASE") => "uppercase")
+(deftest normalise-string
+  (testing "normalise string"
+    (testing "lower cases"
+      (is (= "uppercase" (subject/normalise-string "UPPERCASE"))))
 
-       (fact "sentanceizes"
-             (subject/normalise-string ..input..) => "..output.."
-             (provided
-               (subject/sentenceize ..input..) => ..output..)))
+    (testing "sentanceizes"
+      (is (= "version 1.2.3" (subject/normalise-string "VERSION-1.2.3"))))))
 
-(facts "normalise keys"
-       (fact "normalises the given key"
-             (subject/normalise-key :foo {:foo "SomeFoo"}) => {:foo "some foo"})
+(deftest normalise-key
+  (testing "normalise keys"
+    (testing "normalises the given key"
+      (is (= {:foo "some foo"} (subject/normalise-key :foo {:foo "SomeFoo"}))))
 
-       (fact "doesn't add the key with a nil value if if didn't exist originally"
-             (subject/normalise-key :foo {}) => {}))
+    (testing "doesn't add the key with a nil value if if didn't exist originally"
+      (is (= {} (subject/normalise-key :foo {}))))))

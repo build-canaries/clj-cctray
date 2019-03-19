@@ -15,8 +15,8 @@ jobs:
             - v1-clj-cctray-{{ checksum "project.clj" }}
 
       - run:
-          name: build
-          command: ./ci/compile.sh
+          name: install
+          command: ./lein.sh deps
 
       - save_cache:
           key: v1-clj-cctray-{{ checksum "project.clj" }}
@@ -24,65 +24,53 @@ jobs:
             - ~/.m2
 
       - run:
-          name: test
-          command: ./ci/test.sh
+          name: lint
+          command: ./lein.sh lint
 
       - run:
-          name: move jar to different folder
-          command: |
-            mkdir ./target/jar
-            mv ./target/*.jar ./target/jar/
+          name: test
+          when: always
+          command: ./lein.sh coverage
 
       - store_test_results:
-          path: ./target/surefire-reports
+          path: ./target/coverage-reports
 
       - store_artifacts:
-          path: ./target/jar
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./lein.sh
-            - ./project.clj
-            - ./resources/*.xml
-            - ./ci/*
-            - ./target/jar/*.jar
+          path: ./target/coverage-reports
 
   release:
     working_directory: ~/clj-cctray
 
     docker:
-    - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:8-jdk
 
     steps:
-    - attach_workspace:
-        at: ~/clj-cctray
+      - checkout
 
-    - run:
-        name: export version
-        command: ./ci/export-version.sh
+      - run:
+          name: create release on GitHub
+          command: echo $CIRCLE_SHA1
+#          command: ./.circleci/release-github.sh
 
-    - run:
-        name: move jar back to target
-        command: mv target/jar/*.jar target/
+      - run:
+          name: update the docs
+          command: echo "updating docs"
+#          command: ./.circleci/release-docs.sh
 
-    - run:
-        name: create release on GitHub
-        command: ./ci/release-github.sh
-
-    - run:
-        name: create release on Clojars
-        command: ./ci/release-clojars.sh
+      - run:
+          name: create release on Clojars
+          command: echo "releasing to Clojars"
+#          command: ./lein.sh deploy releases
 
 workflows:
   version: 2
   build-deploy:
     jobs:
-    - build
-    - hold:
-        type: approval
-        requires:
-          - build
-    - release:
-        requires:
-          - hold
+      - build
+      - hold:
+          type: approval
+          requires:
+            - build
+      - release:
+          requires:
+            - hold

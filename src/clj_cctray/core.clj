@@ -8,11 +8,14 @@
             [clj-cctray.dates :as dates]
             [clj-cctray.util :refer :all]))
 
-(defn- normalise-partial [k]
-  (partial normalise-key k))
+(defn ^:dynamic parse-projects [source modifiers]
+  (parser/get-projects source modifiers))
 
-(defn- print-dates-partial [k]
-  (partial dates/print-dates k))
+(defn ^:dynamic normalise-partial [key]
+  (partial normalise-key key))
+
+(defn ^:dynamic print-dates-partial [format]
+  (partial dates/print-dates format))
 
 (defn- project-modifiers-mappings [[option value]]
   (cond
@@ -26,10 +29,10 @@
 (defn- parse-options [options processor-mappings]
   (remove nil? (flatten (map #(processor-mappings %) options))))
 
-(defn- ^:testable project-modifiers [options]
-  (parse-options options project-modifiers-mappings))
-
 (def ^:private default-options {})
+
+(defn project-modifiers [options]
+  (parse-options options project-modifiers-mappings))
 
 (defn get-projects
   "Gets and parses the cctray xml file at the given source and returns a list of project maps.
@@ -41,4 +44,4 @@
   ([source] (get-projects source {}))
   ([source user-supplied-options]
    (let [options (merge default-options user-supplied-options)]
-     (parser/get-projects source (project-modifiers options)))))
+     (parse-projects source (project-modifiers options)))))

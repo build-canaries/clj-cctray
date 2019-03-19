@@ -1,5 +1,5 @@
 (ns clj-cctray.dates
-  "Functions for converting dates found in the cctray xml."
+  "Functions for converting dates found in the CCTray XML."
   (:require [clj-time.format :as f]
             [clj-time.core :as t]
             [clojure.string :refer [blank?]])
@@ -18,19 +18,19 @@
                                         xs-date-time-format-no-timezone
                                         xs-date-time-format-no-milli-or-timezone))
 
-(defn- ^:testable parse-date [s]
+(defn parse-date [s]
   (if-not (blank? s)
     (try
       (f/parse date-parser s)
       (catch IllegalArgumentException _ nil))))
 
-(defn- ^:testable print-date [formatter date]
+(defn print-date [formatter date]
   (if (instance? DateTime date)
     (f/unparse formatter date)
     (str date)))
 
 (defn extract-dates
-  "Extracts the last and next build times from the cctray xml into real DateTime objects."
+  "Extracts the last and next build times from the CCTray XML into real DateTime objects."
   [{:keys [last-build-time next-build-time]}]
   {:last-build-time (parse-date last-build-time)
    :next-build-time (parse-date next-build-time)})
