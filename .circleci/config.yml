@@ -49,18 +49,16 @@ jobs:
 
       - run:
           name: create release on GitHub
-          command: echo $CIRCLE_SHA1
-#          command: ./.circleci/release-github.sh
+          command: ./.circleci/release-github.sh
 
       - run:
           name: update the docs
-          command: echo "updating docs"
-#          command: ./.circleci/release-docs.sh
+          command: ./.circleci/release-docs.sh
 
+      # do this last as the other jobs can be easily reverted if this errors
       - run:
           name: create release on Clojars
-          command: echo "releasing to Clojars"
-#          command: ./lein.sh deploy releases
+          command: ./lein.sh deploy releases
 
 workflows:
   version: 2
