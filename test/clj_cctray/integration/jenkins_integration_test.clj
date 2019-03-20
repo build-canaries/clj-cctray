@@ -1,8 +1,7 @@
 (ns clj-cctray.integration.jenkins-integration-test
   (:require [clj-cctray.core :as subject]
             [clojure.test :refer :all]
-            [clojure.java.io :as io]
-            [clj-time.core :as t]))
+            [clojure.java.io :as io]))
 
 (def test-data-url "resources/jenkins_example.xml")
 
@@ -16,8 +15,8 @@
             :prognosis         :healthy
             :last-build-status :success
             :last-build-label  "429"
-            :last-build-time   (t/date-time 2015 1 16 14 54 59)
-            :next-build-time   nil
+            :last-build-time   "2015-01-16T14:54:59.000Z"
+            :next-build-time   ""
             :web-url           "https://host/view/Example-Service-Pipeline/job/example-service-build/"
             :messages          []}
-           (first (subject/get-projects test-data-url {:server :jenkins}))))))
+           (first (subject/get-projects test-data-url {:server :jenkins :print-dates true}))))))

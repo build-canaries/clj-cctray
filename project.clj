@@ -3,7 +3,7 @@
   :url "https://github.com/build-canaries/clj-cctray"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[clj-time "0.15.1"]]
+  :dependencies [[clojure.java-time "0.3.2"]]
   :javac-options ["-Dclojure.compiler.direct-linking=true"]
   :aliases {"lint"     ["with-profile" "+test" "eastwood"]
             "coverage" ["with-profile" "+test" "cloverage"]

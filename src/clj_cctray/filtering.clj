@@ -1,6 +1,6 @@
 (ns clj-cctray.filtering
   "Functions for filtering the project list."
-  (:require [clj-time.core :as t]
+  (:require [java-time.core :as t]
             [clj-cctray.util :refer :all]))
 
 (defn by-name

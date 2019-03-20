@@ -1,32 +1,28 @@
 (ns clj-cctray.dates
   "Functions for converting dates found in the CCTray XML."
-  (:require [clj-time.format :as f]
-            [clj-time.core :as t]
+  (:require [java-time.format :as f]
+            [java-time.temporal :as t]
             [clojure.string :refer [blank?]])
-  (:import (org.joda.time DateTime)))
+  (:import (java.time ZoneId)))
 
-(def iso-format "Format string in the ISO 8601 format, yyyy-MM-dd'T'HH:mm:ss.SSSZZ" "yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+(defn- formatter [format]
+  (.withZone (f/formatter format) (ZoneId/of "Z")))
 
-(def ^:private xs-date-time-format-no-milli "yyyy-MM-dd'T'HH:mm:ssZ")
-(def ^:private xs-date-time-format-no-milli-or-timezone "yyyy-MM-dd'T'HH:mm:ss")
-(def ^:private xs-date-time-format "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-(def ^:private xs-date-time-format-no-timezone "yyyy-MM-dd'T'HH:mm:ss.SSS")
+(def iso-format
+  "Format string in the ISO 8601 format, yyyy-MM-dd'T'HH:mm:ss.SSSVV"
+  "yyyy-MM-dd'T'HH:mm:ss.SSSVV")
 
-(def ^:private date-parser (f/formatter t/utc
-                                        xs-date-time-format
-                                        xs-date-time-format-no-milli
-                                        xs-date-time-format-no-timezone
-                                        xs-date-time-format-no-milli-or-timezone))
+(def ^:private date-parser (formatter "yyyy-MM-dd'T'HH:mm:ss[.SSS][VV]"))
 
 (defn parse-date [s]
   (if-not (blank? s)
     (try
-      (f/parse date-parser s)
-      (catch IllegalArgumentException _ nil))))
+      (t/instant date-parser s)
+      (catch Exception _ nil))))
 
-(defn print-date [formatter date]
-  (if (instance? DateTime date)
-    (f/unparse formatter date)
+(defn print-date [format date]
+  (if (t/instant? date)
+    (f/format (formatter format) date)
     (str date)))
 
 (defn extract-dates
@@ -38,7 +34,6 @@
 (defn print-dates
   "Prints the last and next build times using the given string format. They must be DateTime objects to be printed
   correctly using the format string, if any other object is found it will just be converted to a string using `str`"
-  [^String format {:keys [last-build-time next-build-time]}]
-  (let [formatter (f/formatter format)]
-    {:last-build-time (print-date formatter last-build-time)
-     :next-build-time (print-date formatter next-build-time)}))
+  [format {:keys [last-build-time next-build-time]}]
+  {:last-build-time (print-date format last-build-time)
+   :next-build-time (print-date format next-build-time)})

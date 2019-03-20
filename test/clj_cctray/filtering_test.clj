@@ -1,7 +1,7 @@
 (ns clj-cctray.filtering-test
   (:require [clj-cctray.filtering :as subject]
             [clojure.test :refer :all]
-            [clj-time.core :as t]))
+            [java-time :as t]))
 
 (deftest by-name
   (is (= [{:name "project-1"}
@@ -16,9 +16,9 @@
                                                      {:name "project-3"}]))))
 
 (deftest filters-by-date
-  (let [date (t/date-time 2015 2 1 0 0 0)
-        before (t/date-time 2015 1 1 0 0 0)
-        after (t/date-time 2015 3 1 0 0 0)]
+  (let [date (t/instant "2015-02-01T00:00:00Z")
+        before (t/instant "2015-01-01T00:00:00Z")
+        after (t/instant "2015-03-01T00:00:00Z")]
     (testing "before"
       (is (= [{:name "project-1" :last-build-time before}]
              (subject/before date [{:name "project-1" :last-build-time before}
