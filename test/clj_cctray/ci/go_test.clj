@@ -17,7 +17,7 @@
            (subject/normalise-job {:job "SomeJob"}))))
 
   (testing "handles nil job"
-    (is (= {:job nil :unnormalised-job nil} (subject/normalise-job {:job nil})))))
+    (is (= {:job nil} (subject/normalise-job {:job nil})))))
 
 (deftest normalise-stage
   (testing "normalises stage"
@@ -25,5 +25,5 @@
            (subject/normalise-stage {:stage "SomeStage"}))))
 
   (testing "handles nil stage"
-    (is (= {:stage nil :unnormalised-stage nil}
+    (is (= {:stage nil}
            (subject/normalise-stage {:stage nil})))))

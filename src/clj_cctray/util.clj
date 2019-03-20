@@ -68,5 +68,6 @@
       \"CamelCased_SNAKE-kebab.DoT\" => \"camel cased snake kebab dot\""
   [key map]
   (if-let [value (get map key)]
-    (assoc map key (normalise-string value))
+    (merge map {(keyword (str "unnormalised-" (name key))) value
+                key                                 (normalise-string value)})
     map))

@@ -8,5 +8,5 @@
            (subject/normalise-owner {:owner "SomeOwner"}))))
 
   (testing "handles nil owner"
-    (is (= {:owner nil :unnormalised-owner nil}
+    (is (= {:owner nil}
            (subject/normalise-owner {:owner nil})))))

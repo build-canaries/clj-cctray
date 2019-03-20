@@ -7,7 +7,7 @@
   :javac-options ["-Dclojure.compiler.direct-linking=true"]
   :aliases {"lint"     ["with-profile" "+test" "eastwood"]
             "coverage" ["with-profile" "+test" "cloverage"]
-            "pre-push" ["do" "clean," "lint," "coverage"]}
+            "pre-push" ["do" "clean," "lint," "test," "coverage"]}
   :repositories [["releases" {:url           "https://clojars.org/repo"
                               :username      :env/clojars_username
                               :password      :env/clojars_password
