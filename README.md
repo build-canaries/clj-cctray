@@ -35,9 +35,9 @@ Failure to set the value correctly will most likely result in an exception being
   Can take a collection of keys to normalise or a `truthy` value to normalise the following `:name`, `:stage`, `:job` and `:owner`.
 
 - `:print-dates`
-  This causes the next and last build times to be printed out as strings instead of being returned as DateTime objects.
+  This causes the next and last build times to be printed out as strings instead of being returned as Instant objects.
   Can take a string specifying a format to use or a `truthy` value to default to the ISO format. A complete list of format
-  patterns can be found on the [Joda-Time website](http://www.joda.org/joda-time/key_format.html)
+  patterns can be found in the [DateTimeFormatter javadocs](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)
 
 ## Map keys
 
@@ -54,11 +54,11 @@ Failure to set the value correctly will most likely result in an exception being
   The build label exactly as it appeared in the xml file.
 
 - `:last-build-time`
-  When the last build occurred as a JodaTime `DateTime` object.
+  When the last build occurred as an `Instant` object.
 
 - `next-build-time`
   When the next build is scheduled to occur (or when the next check to see whether a build should be performed is
-  scheduled to occur) as a JodaTime `DateTime` object.
+  scheduled to occur) as an `Instant` object.
 
 - `:web-url`
   A URL for where more detail can be found about this project exactly as it appeared in the xml file.

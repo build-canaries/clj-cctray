@@ -26,13 +26,13 @@
     (str date)))
 
 (defn extract-dates
-  "Extracts the last and next build times from the CCTray XML into real DateTime objects."
+  "Extracts the last and next build times from the CCTray XML into real Instant objects."
   [{:keys [last-build-time next-build-time]}]
   {:last-build-time (parse-date last-build-time)
    :next-build-time (parse-date next-build-time)})
 
 (defn print-dates
-  "Prints the last and next build times using the given string format. They must be DateTime objects to be printed
+  "Prints the last and next build times using the given string format. They must be Instant objects to be printed
   correctly using the format string, if any other object is found it will just be converted to a string using `str`"
   [format {:keys [last-build-time next-build-time]}]
   {:last-build-time (print-date format last-build-time)
