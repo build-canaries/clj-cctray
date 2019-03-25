@@ -3,5 +3,7 @@
 echo "update docs"
 ./lein.sh codox
 cd docs
-git commit --allow-empty -m "updates docs [skip ci]"
+git config --global user.email "team@nevergreen.io"
+git config --global user.name "@BuildCanaries"
+git commit --allow-empty -m "update docs [skip ci]"
 git push
