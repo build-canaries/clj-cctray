@@ -15,7 +15,8 @@
   :codox {:output-path "docs"}
   :profiles {:dev {:plugins      [[lein-ancient "0.6.15"]
                                   [jonase/eastwood "0.3.5"]
-                                  [lein-cloverage "1.1.0"]]
+                                  [lein-cloverage "1.1.0"]
+                                  [lein-codox "0.10.6"]]
                    :dependencies [[org.clojure/clojure "1.10.0"]]}}
   :cloverage {:output "target/coverage-reports"
               :junit? true}

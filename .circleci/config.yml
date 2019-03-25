@@ -47,6 +47,10 @@ jobs:
     steps:
       - checkout
 
+      - restore_cache:
+          keys:
+            - v1-clj-cctray-{{ checksum "project.clj" }}
+
       - run:
           name: create release on GitHub
           command: ./.circleci/release-github.sh
