@@ -53,7 +53,9 @@ jobs:
 
       - run:
           name: create release on GitHub
-          command: ./.circleci/release-github.sh
+          command: |
+            ./lein.sh jar
+            ./.circleci/release-github.sh
 
       - run:
           name: update the docs
