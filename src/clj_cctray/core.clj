@@ -35,7 +35,7 @@
   (parse-options options project-modifiers-mappings))
 
 (defn get-projects
-  "Gets and parses the cctray xml file at the given source and returns a list of project maps.
+  "Gets and parses the CCTray XML file at the given source and returns a list of project maps.
 
   An optional map of options can be given to modify how the file is parsed.
 

@@ -1,5 +1,5 @@
 (defproject clj-cctray "2.0.0"
-  :description "Clojure parser for cctray.xml"
+  :description "Clojure parser for CCTray XML"
   :url "https://github.com/build-canaries/clj-cctray"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}

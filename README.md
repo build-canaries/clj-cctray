@@ -2,7 +2,7 @@
 
 [![Clojars Project](https://img.shields.io/clojars/v/clj-cctray.svg)](https://clojars.org/clj-cctray) [![CircleCI](https://circleci.com/gh/build-canaries/clj-cctray.svg?style=shield)](https://circleci.com/gh/build-canaries/clj-cctray)
 
-A Clojure library designed to parse the cctray format into a user friendly clojure map.
+A Clojure library designed to parse the CCTray XML format into a user friendly clojure map.
 
 ## Usage
 

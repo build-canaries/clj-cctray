@@ -4,7 +4,7 @@
             [clj-cctray.util :refer :all]))
 
 (defn split-name
-  "CircleCI combines the owner and project name into the cctray xml name attribute.
+  "CircleCI combines the owner and project name into the CCTray XML name attribute.
 
   This function splits the name into individual entries in the project map.
 

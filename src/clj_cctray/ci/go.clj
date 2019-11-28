@@ -7,7 +7,7 @@
   (> (count split-name) 2))
 
 (defn split-name
-  "Go combines the project name, stage and job into the cctray xml name attribute, using :: as a delimter.
+  "Go combines the project name, stage and job into the CCTray XML name attribute, using :: as a delimiter.
 
   This function splits the name into individual entries in the project map.
 
