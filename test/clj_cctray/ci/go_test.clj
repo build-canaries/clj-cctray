@@ -7,7 +7,7 @@
     (is (= {:name "name" :stage "stage" :job "job"}
            (subject/split-name {:name "name :: stage :: job"}))))
 
-  (testing "sets stage and job to nil if no delimiter exists (ie. if parsing from non Go CI Servers)"
+  (testing "sets stage and job to nil if no delimiter exists (ie. if parsing from non GoCD servers)"
     (is (= {:name "i-am-just-a-name" :stage nil :job nil}
            (subject/split-name {:name "i-am-just-a-name"})))))
 

@@ -28,7 +28,8 @@ Failure to set the value correctly will most likely result in an exception being
 
 - `:server`
   A keyword representing the CI server the xml is coming from to allow any server specific parsing. Currently the only
-  values that trigger specific parsing are `:go`, `:snap` and `:circle` any other values will result in this option being ignored.
+  values that trigger specific parsing are `:go`, `:circle` and `:concourse` any other values will result in this option 
+  being ignored.
 
 - `:normalise`
   This will cause the given map keys (if they exist) to be normalised (see below for more details about normalisation).
@@ -86,6 +87,11 @@ If `:circle` is used as the `:server` option then the following keys will also b
 
 - `:owner`
   The name of the project owner, this is the Github user or organisation name.
+
+If `:concourse` is used as the `:server` option then the following keys will also be added:
+
+- `:job`
+  The pipelines job name.
 
 ## Normalised strings
 

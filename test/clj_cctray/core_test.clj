@@ -1,6 +1,7 @@
 (ns clj-cctray.core-test
   (:require [clj-cctray.core :as subject]
             [clj-cctray.ci.circle-ci :as circle]
+            [clj-cctray.ci.concourse :as concourse]
             [clj-cctray.ci.go :as go]
             [clj-cctray.name :as name]
             [clj-cctray.owner :as owner]
@@ -16,7 +17,10 @@
       (is (= [go/split-name] (subject/project-modifiers {:server :go}))))
 
     (testing ":circle"
-      (is (= [circle/split-name] (subject/project-modifiers {:server :circle})))))
+      (is (= [circle/split-name] (subject/project-modifiers {:server :circle}))))
+
+    (testing ":concourse"
+      (is (= [concourse/split-name] (subject/project-modifiers {:server :concourse})))))
 
   (testing ":normalise"
     (testing "allows a single key to be supplied"

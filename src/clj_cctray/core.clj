@@ -4,6 +4,7 @@
             [clj-cctray.name :as name]
             [clj-cctray.owner :as owner]
             [clj-cctray.ci.circle-ci :as circle]
+            [clj-cctray.ci.concourse :as concourse]
             [clj-cctray.ci.go :as go]
             [clj-cctray.dates :as dates]
             [clj-cctray.util :refer :all]))
@@ -21,6 +22,7 @@
   (cond
     (and (= :server option) (= :go value)) go/split-name
     (and (= :server option) (= :circle value)) circle/split-name
+    (and (= :server option) (= :concourse value)) concourse/split-name
     (and (= :normalise option) (coll? value)) (map #(normalise-partial %) value)
     (and (= :normalise option) value) [name/normalise-name, go/normalise-stage, go/normalise-job owner/normalise-owner]
     (and (= :print-dates option) (string? value)) (print-dates-partial value)

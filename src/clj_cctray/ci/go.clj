@@ -1,5 +1,5 @@
 (ns clj-cctray.ci.go
-  "Functions specific to the Go CI server."
+  "Functions specific to the GoCD server."
   (:require [clojure.string :refer [split join]]
             [clj-cctray.util :refer :all]))
 
@@ -7,7 +7,7 @@
   (> (count split-name) 2))
 
 (defn split-name
-  "Go combines the project name, stage and job into the CCTray XML name attribute, using :: as a delimiter.
+  "GoCD combines the project name, stage and job into the CCTray XML name attribute, using :: as a delimiter.
 
   This function splits the name into individual entries in the project map.
 
