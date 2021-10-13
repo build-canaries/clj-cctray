@@ -24,11 +24,11 @@
 
   (testing ":normalise"
     (testing "allows a single key to be supplied"
-      (binding [subject/normalise-partial identity]
+      (binding [subject/*normalise-partial* identity]
         (is (= [:foo] (subject/project-modifiers {:normalise [:foo]})))))
 
     (testing "allows multiple keys to be supplied"
-      (binding [subject/normalise-partial identity]
+      (binding [subject/*normalise-partial* identity]
         (is (= [:foo :bar :baz] (subject/project-modifiers {:normalise [:foo :bar :baz]})))))
 
     (testing "true"
@@ -37,11 +37,11 @@
 
   (testing ":print-dates"
     (testing "uses the iso format by default"
-      (binding [subject/print-dates-partial (fn [format]
+      (binding [subject/*print-dates-partial* (fn [format]
                                               (is (= format dates/iso-format)))]
         (subject/project-modifiers {:print-dates true})))
 
     (testing "uses the given value if it's a string"
-      (binding [subject/print-dates-partial (fn [format]
+      (binding [subject/*print-dates-partial* (fn [format]
                                               (is (= format "yyyy-MM-dd")))]
         (subject/project-modifiers {:print-dates "yyyy-MM-dd"})))))

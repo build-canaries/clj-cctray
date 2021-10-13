@@ -141,6 +141,6 @@ You can run linting and tests using `./lein.sh pre-push`.
 
 ## License
 
-Copyright © 2014 - 2019 Build Canaries
+Copyright © 2014 - 2021 Build Canaries
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
