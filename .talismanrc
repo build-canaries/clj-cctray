@@ -1,0 +1,17 @@
+fileignoreconfig:
+- filename: docs/clj-cctray.ci.circle-ci.html
+  checksum: a7865d5715a515d178f7fada2a7a1012ee949ef26a347d578bce2e44fe083ec1
+- filename: docs/clj-cctray.ci.concourse.html
+  checksum: a7ac6d625a0e87f9e6e625eddbda36ccff1b458527901575d4ecfc1caaf68a69
+- filename: docs/clj-cctray.ci.go.html
+  checksum: 5ca261d8fc5b59897ebe102e1e9f9d3c8bf19e06cc709335272d66c33653aef3
+- filename: docs/clj-cctray.core.html
+  checksum: 9088cd5c53996b4ca3b959141d713aef93decb20ebeb8d8e3f18198e0d00d501
+- filename: docs/clj-cctray.health.html
+  checksum: 35e1724b70e6aac061c759985a70b241de68aefda50393bf39a303bbdfa84788
+- filename: docs/clj-cctray.messages.html
+  checksum: 2c63a5bf55e8a5c6307996df10c03b2ceb4807d366746f76bbab6b8b37e6fb88
+- filename: docs/clj-cctray.util.html
+  checksum: 879b0937edd2e30bcf80821df1c6d6aa08b2a845f2e62ea21b2faac4e2b1c6a0
+- filename: docs/index.html
+  checksum: 2eb17aa37fb30966c7b440259cec8c505053dc2d60e8860f9b2b2a43f44c76ba
